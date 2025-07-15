@@ -1202,13 +1202,15 @@
         </header>
 
         <section class="about-text">
-         <form id="feedbackForm">
-  <input type="text" name="name" placeholder="Your Name" required /><br/>
-  <input type="email" name="email" placeholder="Your Email" required /><br/>
-  <input type="tel" name="phone" placeholder="Phone Number" /><br/>
-  <textarea name="comments" placeholder="Your Comments" required></textarea><br/>
-  <button type="submit">Send Feedback</button>
-</form>
+        <div id="feedback-container">
+  <form id="feedbackForm">
+    <input type="text" name="name" placeholder="Your Name" required /><br/>
+    <input type="email" name="email" placeholder="Your Email" required /><br/>
+    <input type="tel" name="phone" placeholder="Phone Number" /><br/>
+    <textarea name="comments" placeholder="Your Comments" required></textarea><br/>
+    <button type="submit">Send Feedback</button>
+  </form>
+</div>
           
           </section>
       </article>
@@ -1220,24 +1222,31 @@
 
 
 <script>
-  document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const payload = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      comments: formData.get('comments'),
-    };
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        comments: formData.get('comments')
+      };
 
-    const res = await fetch('https://student606-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      try {
+        const res = await fetch('https://student606-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.text();
+        alert(result);
+      } catch (err) {
+        console.error('Feedback Error:', err);
+        alert('There was an error submitting your feedback.');
+      }
     });
-
-    const result = await res.text();
-    alert(result);
   });
 </script>
 
@@ -1254,6 +1263,39 @@
 <style>
   .lrKTG>.Dq4amc{
       display: none;
+  }
+</style>
+  <style>
+  #feedback-container {
+    color: white;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+  }
+
+  #feedbackForm input,
+  #feedbackForm textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #aaa;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+  }
+
+  #feedbackForm button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #feedbackForm button:hover {
+    background-color: #0056b3;
   }
 </style>
 </body>
