@@ -768,6 +768,8 @@ His ability to understand complex requirements and translate them into efficient
     <button type="submit">Send Feedback</button>
   </form>
 </div>
+           <h2>Recent Feedbacks</h2>
+<ul id="feedbackList">Loading...</ul> 
           
           </section>
       </article>
@@ -1238,6 +1240,67 @@ His ability to understand complex requirements and translate them into efficient
         alert('There was an error submitting your feedback.');
       }
     });
+  });
+</script>
+
+  <!--getting feedback from salesforce -->
+  <script>
+  async function loadFeedbacks() {
+    try {
+      const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
+      const data = await res.json();
+
+      const list = document.getElementById('feedbackList');
+      list.innerHTML = ''; // Clear old entries
+
+      data.forEach(entry => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${entry.Name__c}</strong> (${entry.Email__c || 'no email'})<br/>
+          <i>${entry.Comments__c}</i><br/>
+          <small>${new Date(entry.CreatedDate).toLocaleString()}</small>
+          <hr/>
+        `;
+        list.appendChild(li);
+      });
+    } catch (error) {
+      console.error('Failed to load feedbacks', error);
+      document.getElementById('feedbackList').innerText = 'Could not load feedbacks.';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Attach submit listener
+    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        comments: formData.get('comments')
+      };
+
+      try {
+        const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.text();
+        alert(result);
+
+        // Reload feedback list after successful submission
+        loadFeedbacks();
+      } catch (err) {
+        console.error('Feedback Error:', err);
+        alert('There was an error submitting your feedback.');
+      }
+    });
+
+    // Load feedbacks on page load
+    loadFeedbacks();
   });
 </script>
 
