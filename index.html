@@ -772,7 +772,8 @@ His ability to understand complex requirements and translate them into efficient
     
   </form>
 </div>
-          
+         <div id="toast" class="toast hidden">Feedback submitted!</div>
+ 
           </section>
       </article>
       <!--
@@ -784,9 +785,25 @@ His ability to understand complex requirements and translate them into efficient
           <h2 class="h2 article-title">FeedBack</h2>
           
         </header>
-      <section class="feedback-list" id="feedbackContainer">
+<!--       <section class="feedback-list" id="feedbackContainer"> -->
   <!-- Feedback cards will be injected here by JS -->
-</section>
+  <div class="feedback-card" data-name="Teja Adusumilli" data-comment="This is the full comment for popup..." data-avatar="avatar.png">
+  <img src="avatar.png" alt="Avatar" class="feedback-avatar">
+  <div class="feedback-content">
+    <h3 class="feedback-name">Teja Adusumilli</h3>
+    <p class="feedback-snippet">This is the full comment for popup...</p>
+  </div>
+</div>
+<div id="feedbackModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <img id="modal-avatar" src="" class="modal-avatar">
+    <h3 id="modal-name" class="modal-name"></h3>
+    <p id="modal-comment" class="modal-comment"></p>
+  </div>
+</div>
+
+<!-- </section> -->
 
     </article>
 
@@ -1275,44 +1292,84 @@ His ability to understand complex requirements and translate them into efficient
   }
 </style>
       <style>
-        .feedback-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  padding: 1rem 0;
-}
-
 .feedback-card {
-  background-color: #373738;
-  border-left: 5px solid #FDC663;
-  padding: 1.25rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  transition: transform 0.2s ease;
+  background: #2f2f2f;
+  padding: 1rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin: 1rem 0;
+  transition: transform 0.2s;
+}
+.feedback-card:hover {
+  transform: scale(1.02);
 }
 
-.feedback-card:hover {
-  transform: translateY(-4px);
+.feedback-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 1rem;
 }
 
 .feedback-name {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
-  color: #FAFAFA;
+  font-weight: bold;
+  margin: 0;
 }
 
-.feedback-comment {
-  font-size: 0.95rem;
-  color: #FAFAFA;
-  line-height: 1.5;
+.feedback-snippet {
+  margin: 0;
+  color: #aaa;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.feedback-meta {
-  font-size: 0.75rem;
-  color: #FAFAFA;
-  margin-top: 0.5rem;
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #1f1f1f;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  color: white;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-avatar {
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+
 
       </style>
 
@@ -1336,6 +1393,25 @@ His ability to understand complex requirements and translate them into efficient
 .toast-message.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+
+/*     new style  */
+    .toast {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+.toast.show {
+  opacity: 1;
 }
 
   </style>
