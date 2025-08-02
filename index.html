@@ -797,10 +797,15 @@ His ability to understand complex requirements and translate them into efficient
   </div>
 </div> -->
 <div id="feedbackModal" class="modal hidden">
+  
+
   <div class="modal-content">
     <span class="close-modal">&times;</span>
-    <img id="modal-avatar" class="modal-avatar" src="" alt="Avatar" />
-    <h3 id="modal-name" class="modal-name"></h3>
+    
+    <div class="modal-header">
+  <img id="modal-avatar" class="modal-avatar" src="" alt="Avatar" />
+  <h3 id="modal-name" class="modal-name"></h3>
+</div>
     <p id="modal-comment" class="modal-comment"></p>
   </div>
 </div>
@@ -1295,7 +1300,15 @@ His ability to understand complex requirements and translate them into efficient
   }
 </style>
       <style>
+        .modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
 .feedback-card {
+  border-left: 5px solid #FDC663;
   background: #2a2a2a;
   padding: 1rem;
   border-radius: 12px;
@@ -1315,8 +1328,10 @@ His ability to understand complex requirements and translate them into efficient
 }
 
 .feedback-name {
+  font-size: 1.4rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  margin: 0;
+  color: #fff;
 }
 
 .feedback-snippet {
@@ -1343,14 +1358,14 @@ His ability to understand complex requirements and translate them into efficient
   padding: 2rem;
   border-radius: 10px;
   color: #fff;
-  max-width: 400px;
+  max-width: 1000px;
   text-align: center;
   position: relative;
 }
 .modal-avatar {
-  width: 80px;
+   width: 60px;
+  height: 60px;
   border-radius: 50%;
-  margin-bottom: 1rem;
 }
 .close-modal {
   position: absolute;
@@ -1361,6 +1376,7 @@ His ability to understand complex requirements and translate them into efficient
   color: #aaa;
 }
 
+        
       </style>
 
   <style>
