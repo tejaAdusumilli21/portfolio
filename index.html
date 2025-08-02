@@ -785,23 +785,26 @@ His ability to understand complex requirements and translate them into efficient
           <h2 class="h2 article-title">FeedBack</h2>
           
         </header>
+      <div id="feedbackContainer"></div>
+
 <!--       <section class="feedback-list" id="feedbackContainer"> -->
   <!-- Feedback cards will be injected here by JS -->
-  <div class="feedback-card" data-name="Teja Adusumilli" data-comment="This is the full comment for popup..." data-avatar="avatar.png">
+<!--   <div class="feedback-card" data-name="Teja Adusumilli" data-comment="This is the full comment for popup..." data-avatar="avatar.png">
   <img src="avatar.png" alt="Avatar" class="feedback-avatar">
   <div class="feedback-content">
     <h3 class="feedback-name">Teja Adusumilli</h3>
     <p class="feedback-snippet">This is the full comment for popup...</p>
   </div>
-</div>
+</div> -->
 <div id="feedbackModal" class="modal hidden">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
-    <img id="modal-avatar" src="" class="modal-avatar">
+    <img id="modal-avatar" class="modal-avatar" src="" alt="Avatar" />
     <h3 id="modal-name" class="modal-name"></h3>
     <p id="modal-comment" class="modal-comment"></p>
   </div>
 </div>
+
 
 <!-- </section> -->
 
@@ -1293,83 +1296,70 @@ His ability to understand complex requirements and translate them into efficient
 </style>
       <style>
 .feedback-card {
-  background: #2f2f2f;
+  background: #2a2a2a;
   padding: 1rem;
-  border-radius: 15px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin: 1rem 0;
-  transition: transform 0.2s;
-}
-.feedback-card:hover {
-  transform: scale(1.02);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .feedback-avatar {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  margin-right: 1rem;
 }
 
 .feedback-name {
   font-weight: bold;
-  margin: 0;
+  font-size: 1.1rem;
 }
 
 .feedback-snippet {
-  margin: 0;
   color: #aaa;
+  font-size: 0.95rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
-/* Modal */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex; justify-content: center; align-items: center;
   z-index: 999;
 }
-.hidden {
+.modal.hidden {
   display: none;
 }
-
 .modal-content {
-  background: #1f1f1f;
+  background: #1e1e1e;
   padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
+  border-radius: 10px;
+  color: #fff;
   max-width: 400px;
-  color: white;
+  text-align: center;
   position: relative;
 }
-
-.close-modal {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
 .modal-avatar {
-  width: 100px;
+  width: 80px;
   border-radius: 50%;
   margin-bottom: 1rem;
 }
-
-
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
 
       </style>
 
