@@ -282,4 +282,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('feedbackModal').classList.add('hidden');
   });
 });
+// Sample JS to populate modal
+// document.getElementById('modal-avatar').src = user.avatar;
+// document.getElementById('modal-name').textContent = user.name;
+// document.getElementById('modal-email').textContent = user.email;
+// document.getElementById('modal-comments').textContent = user.comments;
+document.getElementById('modal-name').textContent = card.dataset.name || 'No name';
+document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
+document.getElementById('modal-email').textContent = card.dataset.email;
+
 
