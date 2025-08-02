@@ -768,6 +768,8 @@ His ability to understand complex requirements and translate them into efficient
     <input type="tel" name="phone" placeholder="Phone Number" /><br/>
     <textarea name="comments" placeholder="Your Comments" required></textarea><br/>
     <button type="submit">Send Feedback</button>
+
+    
   </form>
 </div>
           
@@ -1223,12 +1225,18 @@ His ability to understand complex requirements and translate them into efficient
 
 
 
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+    const form = document.getElementById('feedbackForm');
+
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const formData = new FormData(e.target);
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      const formData = new FormData(form);
       const payload = {
         name: formData.get('name'),
         email: formData.get('email'),
@@ -1244,14 +1252,38 @@ His ability to understand complex requirements and translate them into efficient
         });
 
         const result = await res.text();
-        alert(result);
+
+        form.reset(); // clear the form
+        showToast("✅ Feedback submitted successfully!");
+
       } catch (err) {
         console.error('Feedback Error:', err);
-        alert('There was an error submitting your feedback.');
+        showToast("❌ There was an error submitting your feedback.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Feedback";
       }
     });
+
+    // Toast function
+    function showToast(message) {
+      const toast = document.createElement("div");
+      toast.textContent = message;
+      toast.className = "toast-message";
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
   });
 </script>
+
 <script>
   async function loadFeedback() {
     try {
@@ -1369,6 +1401,30 @@ His ability to understand complex requirements and translate them into efficient
 }
 
       </style>
+
+  <style>
+    .toast-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #323232;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  </style>
    
 </body>
 
