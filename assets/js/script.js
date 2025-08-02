@@ -160,61 +160,64 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
 
   document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('feedbackForm');
+  document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      comments: formData.get('comments')
+    };
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
+    try {
+      const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-
-      const formData = new FormData(form);
-      const payload = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        comments: formData.get('comments')
-      };
-
-      try {
-        const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await res.text();
-
-        form.reset(); // clear the form
-        showToast("✅ Feedback submitted successfully!");
-
-      } catch (err) {
-        console.error('Feedback Error:', err);
-        showToast("❌ There was an error submitting your feedback.");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send Feedback";
-      }
-    });
-
-    // Toast function
-    function showToast(message) {
-      const toast = document.createElement("div");
-      toast.textContent = message;
-      toast.className = "toast-message";
-      document.body.appendChild(toast);
-
-      setTimeout(() => {
-        toast.classList.add('show');
-      }, 100);
-
-      setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      const result = await res.text();
+      form.reset(); // clear form
+      showToast("Feedback submitted!");
+    } catch (err) {
+      console.error('Feedback Error:', err);
+      showToast("Error submitting feedback.");
     }
   });
+});
+// toast message
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  toast.classList.remove('hidden');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.classList.add('hidden');
+  }, 3000);
+}
+//card show and hide
+document.querySelectorAll('.feedback-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.getAttribute('data-name');
+    const comment = card.getAttribute('data-comment');
+    const avatar = card.getAttribute('data-avatar');
+
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-comment').textContent = comment;
+    document.getElementById('modal-avatar').src = avatar;
+
+    document.getElementById('feedbackModal').classList.remove('hidden');
+  });
+});
+
+document.querySelector('.close-modal').addEventListener('click', () => {
+  document.getElementById('feedbackModal').classList.add('hidden');
+});
+
 
   async function loadFeedback() {
     try {
