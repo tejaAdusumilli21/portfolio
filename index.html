@@ -770,12 +770,14 @@ His ability to understand complex requirements and translate them into efficient
   </form>
 </div>
           <!-- starting feedback get response -->
-           <div class="container">
-    <h2 class="mb-4">Recent Feedback</h2>
+           <section id="feedbackSection" class="py-5">
+  <div class="container">
+    <h2 class="mb-4 text-white">Recent Feedback</h2>
     <div class="row" id="feedbackContainer">
-      <!-- Cards will be injected here -->
+      <!-- Feedback cards will appear here -->
     </div>
   </div>
+</section>
             <!-- ending feedback get response -->
           </section>
       </article>
@@ -1255,63 +1257,37 @@ His ability to understand complex requirements and translate them into efficient
   </script>
 
   <!--getting feedback from salesforce -->
-  <script>
-  async function loadFeedbacks() {
+ <script>
+  document.addEventListener('DOMContentLoaded', async () => {
     try {
-      const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
-      const data = await res.json();
+      const response = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
+      const data = await response.json();
 
-      const list = document.getElementById('feedbackList');
-      list.innerHTML = ''; // Clear old entries
+      const container = document.getElementById('feedbackContainer');
 
-      data.forEach(entry => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <strong>${entry.Name__c}</strong> (${entry.Email__c || 'no email'})<br/>
-          <i>${entry.Comments__c}</i><br/>
-          <small>${new Date(entry.CreatedDate).toLocaleString()}</small>
-          <hr/>
+      data.forEach(feedback => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4 mb-4';
+
+        col.innerHTML = `
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">${feedback.Name}</h5>
+              <p class="card-text">${feedback.Comments__c}</p>
+            </div>
+            <div class="card-footer text-muted small">
+              ${new Date(feedback.CreatedDate).toLocaleString()}
+            </div>
+          </div>
         `;
-        list.appendChild(li);
+
+        container.appendChild(col);
       });
-    } catch (error) {
-      console.error('Failed to load feedbacks', error);
-      document.getElementById('feedbackList').innerText = 'Could not load feedbacks.';
+
+    } catch (err) {
+      console.error('Error fetching feedback:', err);
+      document.getElementById('feedbackContainer').innerHTML = `<p class="text-danger">Could not load feedback.</p>`;
     }
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // Attach submit listener
-    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const payload = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        comments: formData.get('comments')
-      };
-
-      try {
-        const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await res.text();
-        alert(result);
-
-        // Reload feedback list after successful submission
-        loadFeedbacks();
-      } catch (err) {
-        console.error('Feedback Error:', err);
-        alert('There was an error submitting your feedback.');
-      }
-    });
-
-    // Load feedbacks on page load
-    loadFeedbacks();
   });
 </script>
 
@@ -1330,6 +1306,7 @@ His ability to understand complex requirements and translate them into efficient
       display: none;
   }
 </style>
+<!--   feedback getting style -->
   <style>
   #feedback-container {
     color: white;
@@ -1363,22 +1340,31 @@ His ability to understand complex requirements and translate them into efficient
     background-color: #0056b3;
   }
 </style>
-  <style>
-    body {
-      background-color: #121212;
-      color: #f0f0f0;
-      padding: 2rem;
-    }
-    .card {
-      background-color: #1e1e1e;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .card-title {
-      color: #00d4ff;
-    }
-  </style>
+ <style>
+  #feedbackSection {
+    background-color: #121212;
+  }
+
+  #feedbackSection .card {
+    background-color: #1e1e1e;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  #feedbackSection .card-title {
+    color: #00d4ff;
+  }
+
+  #feedbackSection .card-text {
+    color: #ddd;
+  }
+
+  #feedbackSection .card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+  }
+</style>
 </body>
 
 </html>
