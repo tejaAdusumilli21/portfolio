@@ -1313,10 +1313,10 @@ His ability to understand complex requirements and translate them into efficient
 
 /* Feedback Cards Grid */
 .feedback-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
 }
 
 /* Individual Feedback Card */
