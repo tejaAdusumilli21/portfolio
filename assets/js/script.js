@@ -200,47 +200,73 @@ function showToast(message) {
   }, 3000);
 }
 //card show and hide
-document.querySelectorAll('.feedback-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const name = card.getAttribute('data-name');
-    const comment = card.getAttribute('data-comment');
-    const avatar = card.getAttribute('data-avatar');
+// document.querySelectorAll('.feedback-card').forEach(card => {
+//   card.addEventListener('click', () => {
+//     const name = card.getAttribute('data-name');
+//     const comment = card.getAttribute('data-comment');
+//     const avatar = card.getAttribute('data-avatar');
 
-    document.getElementById('modal-name').textContent = name;
-    document.getElementById('modal-comment').textContent = comment;
-    document.getElementById('modal-avatar').src = avatar;
+//     document.getElementById('modal-name').textContent = name;
+//     document.getElementById('modal-comment').textContent = comment;
+//     document.getElementById('modal-avatar').src = avatar;
 
-    document.getElementById('feedbackModal').classList.remove('hidden');
+//     document.getElementById('feedbackModal').classList.remove('hidden');
+//   });
+// });
+
+// document.querySelector('.close-modal').addEventListener('click', () => {
+//   document.getElementById('feedbackModal').classList.add('hidden');
+// });
+
+
+
+async function loadFeedback() {
+  try {
+    const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
+    const feedbackList = await res.json();
+    const container = document.getElementById('feedbackContainer');
+
+    if (!Array.isArray(feedbackList) || feedbackList.length === 0) {
+      container.innerHTML = '<p>No feedback found.</p>';
+      return;
+    }
+
+    container.innerHTML = feedbackList.map(entry => `
+      <div class="feedback-card"
+        data-name="${entry.Name || 'Anonymous'}"
+        data-comment="${entry.Comments__c || 'No comment provided.'}"
+        data-avatar="assets/images/avator- (9).png">
+        
+        <img src="assets/images/avator- (9).png" class="feedback-avatar" alt="Avatar">
+        <div>
+          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+          <div class="feedback-snippet">${(entry.Comments__c || 'No comment provided.').slice(0, 100)}...</div>
+        </div>
+      </div>
+    `).join('');
+
+    // Attach modal click listeners
+    document.querySelectorAll('.feedback-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.getElementById('modal-name').textContent = card.dataset.name;
+        document.getElementById('modal-comment').textContent = card.dataset.comment;
+        document.getElementById('modal-avatar').src = card.dataset.avatar;
+        document.getElementById('feedbackModal').classList.remove('hidden');
+      });
+    });
+
+  } catch (err) {
+    console.error('Error fetching feedback:', err);
+    document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadFeedback);
+
+// Close modal
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('feedbackModal').classList.add('hidden');
   });
 });
 
-document.querySelector('.close-modal').addEventListener('click', () => {
-  document.getElementById('feedbackModal').classList.add('hidden');
-});
-
-
-  async function loadFeedback() {
-    try {
-      const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
-      const feedbackList = await res.json();
-      const container = document.getElementById('feedbackContainer');
-
-      if (!Array.isArray(feedbackList) || feedbackList.length === 0) {
-        container.innerHTML = '<p>No feedback found.</p>';
-        return;
-      }
-
-      container.innerHTML = feedbackList.map(entry => `
-        <div class="feedback-card">
-          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
-          <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
-          <div class="feedback-meta">${entry.Email__c ? `📧 ${entry.Email__c}` : ''}</div>
-        </div>
-      `).join('');
-    } catch (err) {
-      console.error('Error fetching feedback:', err);
-      document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', loadFeedback);
