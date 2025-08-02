@@ -200,23 +200,23 @@ function showToast(message) {
   }, 3000);
 }
 //card show and hide
-// document.querySelectorAll('.feedback-card').forEach(card => {
-//   card.addEventListener('click', () => {
-//     const name = card.getAttribute('data-name');
-//     const comment = card.getAttribute('data-comment');
-//     const avatar = card.getAttribute('data-avatar');
+document.querySelectorAll('.feedback-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const name = card.getAttribute('data-name');
+    const comment = card.getAttribute('data-comment');
+    const avatar = card.getAttribute('data-avatar');
 
-//     document.getElementById('modal-name').textContent = name;
-//     document.getElementById('modal-comment').textContent = comment;
-//     document.getElementById('modal-avatar').src = avatar;
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-comment').textContent = comment;
+    document.getElementById('modal-avatar').src = avatar;
 
-//     document.getElementById('feedbackModal').classList.remove('hidden');
-//   });
-// });
+    document.getElementById('feedbackModal').classList.remove('hidden');
+  });
+});
 
-// document.querySelector('.close-modal').addEventListener('click', () => {
-//   document.getElementById('feedbackModal').classList.add('hidden');
-// });
+document.querySelector('.close-modal').addEventListener('click', () => {
+  document.getElementById('feedbackModal').classList.add('hidden');
+});
 
 
 
