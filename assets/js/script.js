@@ -231,19 +231,32 @@ async function loadFeedback() {
       return;
     }
 
-    container.innerHTML = feedbackList.map(entry => `
-      <div class="feedback-card"
-        data-name="${entry.Name || 'Anonymous'}"
-        data-comment="${entry.Comments__c || 'No comment provided.'}"
-        data-avatar="assets/images/avator- (9).png">
+    // container.innerHTML = feedbackList.map(entry => `
+    //   <div class="feedback-card"
+    //     data-name="${entry.Name || 'Anonymous'}"
+    //     data-comment="${entry.Comments__c || 'No comment provided.'}"
+    //     data-avatar="assets/images/avator- (9).png">
         
-        <img src="assets/images/avator- (9).png" class="feedback-avatar" alt="Avatar">
-        <div>
-          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
-          <div class="feedback-snippet">${(entry.Comments__c || 'No comment provided.').slice(0, 100)}...</div>
-        </div>
-      </div>
-    `).join('');
+    //     <img src="assets/images/avator- (9).png" class="feedback-avatar" alt="Avatar">
+    //     <div>
+    //       <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+    //       <div class="feedback-snippet">${(entry.Comments__c || 'No comment provided.').slice(0, 100)}...</div>
+    //     </div>
+    //   </div>
+    // `).join('');
+
+
+    container.innerHTML = feedbackList.map(entry => `
+  <div class="feedback-card">
+    <img src="assets/images/avator- (9).png" alt="Avatar">
+    <div class="feedback-content">
+      <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+      <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
+      <div class="feedback-meta">${entry.Email__c ? `📧 ${entry.Email__c}` : ''}</div>
+    </div>
+  </div>
+`).join('');
+
 
     // Attach modal click listeners
     document.querySelectorAll('.feedback-card').forEach(card => {
