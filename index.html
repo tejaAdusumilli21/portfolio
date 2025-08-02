@@ -23,7 +23,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-   
 </head>
 
 <body>
@@ -194,9 +193,7 @@
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
           </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>feedbackPage</button>
-          </li>
+
         </ul>
 
       </nav>
@@ -771,28 +768,11 @@ His ability to understand complex requirements and translate them into efficient
     <button type="submit">Send Feedback</button>
   </form>
 </div>
-         
+          
           </section>
       </article>
 
 
-      <article class="feedbackPage" data-page="feedbackPage">
-      <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-    <!-- starting feedback get response -->
-           <section id="feedbackSection">
-             <div  id="feedbackContainer">
-  <div class="container">
-    <h2 class="mb-4 text-white">Recent Feedback</h2>
-    <div class="row" id="feedbackContainer">
-      <!-- Feedback cards will appear here -->
-    </div>
-  </div>
-</section>
-            <!-- ending feedback get response -->
-
-</article>
       <!--
         - #PORTFOLIO
       -->
@@ -1233,71 +1213,31 @@ His ability to understand complex requirements and translate them into efficient
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        comments: formData.get('comments')
+      };
+
       try {
-        const response = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
-        const data = await response.json();
-
-        const container = document.getElementById('feedbackContainer');
-
-        data.forEach(feedback => {
-          const col = document.createElement('div');
-          col.className = 'col-md-4 mb-4';
-
-          col.innerHTML = `
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">${feedback.Name}</h5>
-                <p class="card-text">${feedback.Comments__c}</p>
-              </div>
-              <div class="card-footer text-muted small">
-                ${new Date(feedback.CreatedDate).toLocaleString()}
-              </div>
-            </div>
-          `;
-
-          container.appendChild(col);
+        const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
 
+        const result = await res.text();
+        alert(result);
       } catch (err) {
-        console.error('Error fetching feedback:', err);
-        document.getElementById('feedbackContainer').innerHTML = `<p class="text-danger">Could not load feedback.</p>`;
+        console.error('Feedback Error:', err);
+        alert('There was an error submitting your feedback.');
       }
     });
-  </script>
-
-  <!--getting feedback from salesforce -->
- <script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      const response = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
-      const data = await response.json();
-
-      const container = document.getElementById('feedbackContainer');
-
-      data.forEach(feedback => {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-4';
-
-        col.innerHTML = `
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">${feedback.Name}</h5>
-              <p class="card-text">${feedback.Comments__c}</p>
-            </div>
-            <div class="card-footer text-muted small">
-              ${new Date(feedback.CreatedDate).toLocaleString()}
-            </div>
-          </div>
-        `;
-
-        container.appendChild(col);
-      });
-
-    } catch (err) {
-      console.error('Error fetching feedback:', err);
-      document.getElementById('feedbackContainer').innerHTML = `<p class="text-danger">Could not load feedback.</p>`;
-    }
   });
 </script>
 
@@ -1316,7 +1256,7 @@ His ability to understand complex requirements and translate them into efficient
       display: none;
   }
 </style>
-   <style>
+  <style>
   #feedback-container {
     color: white;
     background-color: #222;
@@ -1349,7 +1289,6 @@ His ability to understand complex requirements and translate them into efficient
     background-color: #0056b3;
   }
 </style>
-
 </body>
 
 </html>
