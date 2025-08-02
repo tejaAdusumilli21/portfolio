@@ -772,7 +772,7 @@ His ability to understand complex requirements and translate them into efficient
     
   </form>
 </div>
-         <div id="toast" class="toast hidden">Feedback submitted!</div>
+         <div id="toast" class="toast hidden">Submitted Successfully!</div>
  
           </section>
       </article>
@@ -792,14 +792,19 @@ His ability to understand complex requirements and translate them into efficient
   
 
   <div class="modal-content">
-    <span class="close-modal">&times;</span>
-    
-    <div class="modal-header">
-  <img id="modal-avatar" class="modal-avatar" src="" alt="Avatar" />
-  <h3 id="modal-name" class="modal-name"></h3>
-</div>
-    <p id="modal-comment" class="modal-comment"></p>
+  <div class="modal-header">
+    <span class="close-button">&times;</span>
   </div>
+  <div class="modal-body">
+    <div class="modal-user">
+      <img id="modal-avatar" class="modal-avatar" src="" alt="Avatar" />
+      <h3 id="modal-name" class="modal-name"></h3>
+    </div>
+    <p id="modal-email" class="modal-email"></p>
+    <p id="modal-comments" class="modal-comments"></p>
+  </div>
+</div>
+
 </div>
 
 
@@ -1381,6 +1386,20 @@ His ability to understand complex requirements and translate them into efficient
 }
 
 /* Modal Styling */
+    .modal-body {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  color: #fff;
+}
+
+.modal-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -1404,15 +1423,14 @@ His ability to understand complex requirements and translate them into efficient
   position: relative;
 }
 .modal-avatar {
-  width: 60px;
-  height: 60px;
+   width: 64px;
+  height: 64px;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  object-fit: cover;
 }
 .modal-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #fff;
+   font-size: 1.2rem;
+   margin: 0;
 }
 .close-modal {
   position: absolute;
