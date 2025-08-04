@@ -457,78 +457,54 @@ His ability to understand complex requirements and translate them into efficient
 
 <!--     new slider cards     -->
 
-<section class="testimonials-section">
-  <h3 class="h3 testimonials-title">Collaboration</h3>
+<section class="testimonial-section">
+  <h2 class="testimonial-title">Collaboration</h2>
 
-  <div class="testimonials-wrapper">
-    <button class="arrow left" id="leftArrow">&#10094;</button>
+  <!-- Navigation Arrows -->
+  <div class="nav-arrows">
+    <button id="leftArrow" class="arrow-btn">&#10094;</button>
+    <button id="rightArrow" class="arrow-btn">&#10095;</button>
+  </div>
 
-    <ul class="testimonials-list" id="testimonialsList">
-      <!-- Testimonial 1 -->
-      <li class="testimonials-item">
-        <div class="content-card">
-          <figure class="testimonials-avatar-box">
-            <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" width="60">
-          </figure>
-          <h4 class="h4 testimonials-item-title">Satya Bandaru</h4>
-          <div class="testimonials-text">
-            <p>... your full testimonial content ...</p>
-          </div>
-        </div>
-      </li>
- <li class="testimonials-item">
-        <div class="content-card">
-          <figure class="testimonials-avatar-box">
-            <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" width="60">
-          </figure>
-          <h4 class="h4 testimonials-item-title">Satya Bandaru2</h4>
-          <div class="testimonials-text">
-            <p>... your full testimonial content ...</p>
-          </div>
-        </div>
-      </li>
-       <li class="testimonials-item">
-        <div class="content-card">
-          <figure class="testimonials-avatar-box">
-            <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" width="60">
-          </figure>
-          <h4 class="h4 testimonials-item-title">Satya Bandaru3</h4>
-          <div class="testimonials-text">
-            <p>... your full testimonial content ...</p>
-          </div>
-        </div>
-      </li>
-       <li class="testimonials-item">
-        <div class="content-card">
-          <figure class="testimonials-avatar-box">
-            <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" width="60">
-          </figure>
-          <h4 class="h4 testimonials-item-title">Satya Bandaru4</h4>
-          <div class="testimonials-text">
-            <p>... your full testimonial content ...</p>
-          </div>
-        </div>
-      </li>
-       <li class="testimonials-item">
-        <div class="content-card">
-          <figure class="testimonials-avatar-box">
-            <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" width="60">
-          </figure>
-          <h4 class="h4 testimonials-item-title">Satya Bandaru5</h4>
-          <div class="testimonials-text">
-            <p>... your full testimonial content ...</p>
-          </div>
-        </div>
-      </li>
-      <!-- Add your testimonials as-is from your original list -->
-      <!-- Just wrap them in <li class="testimonials-item">...</li> -->
-      <!-- Keep them inside the <ul id="testimonialsList"> -->
+  <!-- Carousel Container -->
+  <div class="testimonial-carousel" id="carousel">
+    <!-- Testimonial Card 1 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/avatar-1.png" alt="Satya Bandaru" class="avatar" />
+      <h4 class="testimonial-name">Satya Bandaru</h4>
+      <p class="testimonial-text">... your full testimonial content ...</p>
+    </div>
 
-    </ul>
+    <!-- Testimonial Card 2 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/avatar-1.png" alt="Satya Bandaru2" class="avatar" />
+      <h4 class="testimonial-name">Satya Bandaru2</h4>
+      <p class="testimonial-text">... your full testimonial content ...</p>
+    </div>
 
-    <button class="arrow right" id="rightArrow">&#10095;</button>
+    <!-- Testimonial Card 3 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/avatar-1.png" alt="Satya Bandaru3" class="avatar" />
+      <h4 class="testimonial-name">Satya Bandaru3</h4>
+      <p class="testimonial-text">... your full testimonial content ...</p>
+    </div>
+
+    <!-- Testimonial Card 4 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/avatar-1.png" alt="Satya Bandaru4" class="avatar" />
+      <h4 class="testimonial-name">Satya Bandaru4</h4>
+      <p class="testimonial-text">... your full testimonial content ...</p>
+    </div>
+
+    <!-- Testimonial Card 5 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/avatar-1.png" alt="Satya Bandaru5" class="avatar" />
+      <h4 class="testimonial-name">Satya Bandaru5</h4>
+      <p class="testimonial-text">... your full testimonial content ...</p>
+    </div>
   </div>
 </section>
+
 
         <!--
           - testimonials modal
@@ -1575,91 +1551,83 @@ His ability to understand complex requirements and translate them into efficient
   </style>
  <style>
 /*    new slider Style  */
-/*    .testimonials-section {
-  padding: 2rem;
+/* .testimonial-section {
+  background: #111;
+  padding: 40px;
+  color: #fff;
   position: relative;
-  background: #f8f9fa;
 }
 
-.testimonials-title {
+.testimonial-title {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  margin-bottom: 20px;
 } */
 
-/* .testimonials-wrapper {
-  position: relative;
-  overflow: hidden;
+.nav-arrows {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-.testimonials-list {
+.arrow-btn {
+  background: #ffcb2f;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background 0.3s ease;
+}
+
+.arrow-btn:hover {
+  background: #ffc107;
+}
+/*
+.testimonial-carousel {
   display: flex;
-  gap: 1rem;
+  gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 1rem 0;
-  list-style: none;
-  margin: 0;
-} */
-
-/* .testimonials-item {
-  min-width: 300px;
-  flex-shrink: 0;
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-} */
-
-/* .testimonials-avatar-box img {
-  border-radius: 50%;
+  padding-bottom: 10px;
 }
 
-.testimonials-item-title {
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.testimonials-text p {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-} */
-
-.arrow {
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  border: none;
-  color: white;
-  font-size: 2rem;
-  padding: 0.5rem 0.8rem;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 2;
-  display: none; /* Hide initially */
-}
-
-.arrow.left {
-  left: 0.5rem;
-}
-
-.arrow.right {
-  right: 0.5rem;
-}
-
-.arrow:disabled {
+.testimonial-carousel::-webkit-scrollbar {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .testimonials-item {
-    min-width: 250px;
-  }
+.testimonial-card {
+  background: #1e1e1e;
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 203, 47, 0.2);
+  transition: transform 0.3s;
 }
+
+ .testimonial-card:hover {
+  transform: scale(1.03);
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.testimonial-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.testimonial-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+} */
 
  </style>  
 </body>
