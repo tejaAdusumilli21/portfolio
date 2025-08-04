@@ -183,85 +183,72 @@ function showToast(message) {
     toast.classList.add("hidden");
   }, 3000);
 }
-//card show and hide
-document.querySelectorAll(".feedback-card").forEach((card) => {
-  card.addEventListener("click", () => {
-    document.getElementById("modal-name").textContent = card.dataset.name;
-    document.getElementById("modal-email").textContent = card.dataset.email;
-    document.getElementById("modal-comment").textContent = card.dataset.comment;
-    document.getElementById("modal-avatar").src = card.dataset.avatar;
-    document.getElementById("feedbackModal").classList.remove("hidden");
-  });
-});
-
-document.querySelector(".close-modal").addEventListener("click", () => {
-  document.getElementById("feedbackModal").classList.add("hidden");
-});
+/* feedback.js */
 
 async function loadFeedback() {
   try {
-    const res = await fetch(
-      "https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/"
-    );
+    const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
     const feedbackList = await res.json();
-    const container = document.getElementById("feedbackContainer");
+    const container = document.getElementById('feedbackContainer');
 
     if (!Array.isArray(feedbackList) || feedbackList.length === 0) {
-      container.innerHTML = "<p>No feedback found.</p>";
+      container.innerHTML = '<p>No feedback found.</p>';
       return;
     }
 
-    // Build cards with dataset attributes for easy access later
-    container.innerHTML = feedbackList
-      .map(
-        (entry) => `
-      <div class="feedback-card"
-        data-name="${entry.Name || "Anonymous"}"
-        data-comment="${entry.Comments__c || "No comment provided."}"
-        data-email="${entry.Email__c || ""}"
-        data-avatar="assets/images/avator- (9).png">
+    // Render each feedback entry as a card. No dataset attributes required.
+    container.innerHTML = feedbackList.map(entry => `
+      <div class="feedback-card">
         <img src="assets/images/avator- (9).png" alt="Avatar">
         <div class="feedback-content">
-          <div class="feedback-name">${entry.Name || "Anonymous"}</div>
-          <div class="feedback-comment">${
-            entry.Comments__c || "No comment provided."
-          }</div>
-          <div class="feedback-meta">${
-            entry.Email__c ? `📧 ${entry.Email__c}` : ""
-          }</div>
+          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+          <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
+          <div class="feedback-meta">${entry.Email__c ? `📧 ${entry.Email__c}` : ''}</div>
         </div>
       </div>
-    `
-      )
-      .join("");
+    `).join('');
 
-    // Attach a click listener to each card
-    attachFeedbackCardListeners();
   } catch (err) {
-    console.error("Error fetching feedback:", err);
-    container.innerHTML = "<p>Error loading feedback.</p>";
+    console.error('Error fetching feedback:', err);
+    document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
   }
 }
-function attachFeedbackCardListeners() {
-  document.querySelectorAll(".feedback-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      document.getElementById("modal-name").textContent =
-        card.dataset.name || "";
-      document.getElementById("modal-email").textContent =
-        card.dataset.email || "";
-      document.getElementById("modal-comment").textContent =
-        card.dataset.comment || "";
-      // Use dataset.avatar (set above) or fall back to the card's <img> src
-      document.getElementById("modal-avatar").src =
-        card.dataset.avatar || card.querySelector("img").src;
-      document.getElementById("feedbackModal").classList.remove("hidden");
-    });
+
+// Delegate click events from the container to the cards
+function attachFeedbackClickHandler() {
+  const container = document.getElementById('feedbackContainer');
+  container.addEventListener('click', (e) => {
+    const card = e.target.closest('.feedback-card');
+    if (!card) return;
+
+    // Extract values from the card itself
+    const avatarSrc = card.querySelector('img').src;
+    const name = card.querySelector('.feedback-name').innerText;
+    const comment = card.querySelector('.feedback-comment').innerText;
+    const email = card.querySelector('.feedback-meta').innerText;
+
+    document.getElementById('modal-avatar').src = avatarSrc;
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-comment').textContent = comment;
+    document.getElementById('modal-email').textContent = email;
+    document.getElementById('feedbackModal').classList.remove('hidden');
   });
 }
 
-document.querySelector(".close-modal").addEventListener("click", () => {
-  document.getElementById("feedbackModal").classList.add("hidden");
+// Close the modal when the X is clicked
+function attachCloseModalHandler() {
+  document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('feedbackModal').classList.add('hidden');
+  });
+}
+
+// Initialize everything on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  loadFeedback();
+  attachFeedbackClickHandler();
+  attachCloseModalHandler();
 });
+
 
 // slider function for cards
 /* === Testimonials slider logic === */
