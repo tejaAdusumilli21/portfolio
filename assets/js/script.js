@@ -290,27 +290,35 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 
 
 // slider function for cards
-  document.addEventListener("DOMContentLoaded", () => {
-  const list = document.getElementById("testimonialsList");
-  const leftArrow = document.getElementById("leftArrow");
-  const rightArrow = document.getElementById("rightArrow");
-  const scrollAmount = 300;
 
-  const updateArrows = () => {
-    const maxScrollLeft = list.scrollWidth - list.clientWidth;
-    leftArrow.style.display = list.scrollLeft > 0 ? "block" : "none";
-    rightArrow.style.display = list.scrollLeft < maxScrollLeft ? "block" : "none";
-  };
+  document.addEventListener("DOMContentLoaded", function () {
+    const container = document.querySelector("[data-testimonials-wrapper]");
+    const list = document.querySelector("[data-testimonials-list]");
+    const leftArrow = document.querySelector("[data-left-arrow]");
+    const rightArrow = document.querySelector("[data-right-arrow]");
 
-  const scrollList = (direction) => {
-    list.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
-  };
+    // Scroll step size (card width)
+    const scrollAmount = 300;
 
-  leftArrow.addEventListener("click", () => scrollList(-1));
-  rightArrow.addEventListener("click", () => scrollList(1));
-  list.addEventListener("scroll", updateArrows);
+    // Handle arrow clicks
+    leftArrow.addEventListener("click", () => {
+      list.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
 
-  // Initialize on load
-  updateArrows();
-});
+    rightArrow.addEventListener("click", () => {
+      list.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    // Show/hide arrows based on scroll position
+    function updateArrows() {
+      const maxScrollLeft = list.scrollWidth - list.clientWidth;
+      leftArrow.style.display = list.scrollLeft > 0 ? "block" : "none";
+      rightArrow.style.display = list.scrollLeft < maxScrollLeft ? "block" : "none";
+    }
+
+    // Call on scroll and on load
+    list.addEventListener("scroll", updateArrows);
+    window.addEventListener("load", updateArrows);
+  });
+
 
