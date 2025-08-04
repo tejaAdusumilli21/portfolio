@@ -1882,3 +1882,309 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+
+
+    /* Google Translate button removal */
+    .lrKTG>.Dq4amc {
+      display: none;
+    }
+
+    /* Main Feedback Form Container */
+    #feedback-container {
+      color: #ffffff;
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 12px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 960px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Form Elements */
+    #feedbackForm input,
+    #feedbackForm textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #555;
+      background-color: #2b2b2b;
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    #feedbackForm input:focus,
+    #feedbackForm textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Submit Button */
+    #feedbackForm button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #feedbackForm button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Feedback Cards Grid */
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    /* Individual Feedback Card */
+    .feedback-card {
+      background-color: #2c2c2c;
+      border-left: 5px solid #fdc663;
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: flex-start;
+      width: 300px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feedback-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Avatar in Feedback Card */
+    .feedback-card img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      object-fit: cover;
+    }
+
+    /* Feedback Content */
+    .feedback-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feedback-name {
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+      font-size: 1.05rem;
+    }
+
+    .feedback-comment,
+    .feedback-snippet {
+      color: #cccccc;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 2.6em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .feedback-meta {
+      font-size: 0.8rem;
+      color: #999999;
+      margin-top: 0.5rem;
+    }
+
+    /* Modal Styling */
+    .modal-body {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+      color: #fff;
+    }
+
+    .modal-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #222;
+      padding: 30px;
+      border-radius: 12px;
+      color: white;
+      text-align: center;
+      width: auto;
+      position: relative;
+    }
+
+    .modal-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .modal-name {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: #fff;
+    }
+
+    /* Toast Notifications */
+    .toast,
+    .toast-message {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background: #323232;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+
+    .toast.show,
+    .toast-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Alternative green toast */
+    .toast.green {
+      background: #4CAF50;
+      padding: 12px 24px;
+      font-size: 1rem;
+    }
+
+    /* Modal header spacing */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      justify-content: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .feedback-grid {
+        justify-content: center;
+      }
+
+      .feedback-card {
+        width: 90%;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+      }
+
+      .toast,
+      .toast-message {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+ 
+    /*    new slider Style  */
+   /* === Testimonials slider navigation === */
+.testimonials-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.testimonials-wrapper .testimonials-list {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.testimonial-nav-btn {
+  background: none;
+  border: none;
+  color: var(--orange-yellow-crayola);
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 5;
+}
+
+.testimonial-nav-btn.left  { margin-right: 0.5rem; }
+.testimonial-nav-btn.right { margin-left: 0.5rem; }
+
+/* === Certifications slider navigation === */
+.certificate-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.certificate-wrapper .certificate-list {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.certificate-nav-btn {
+  background: none;
+  border: none;
+  color: var(--orange-yellow-crayola);
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 5;
+}
+
+.certificate-nav-btn.left  { margin-right: 0.5rem; }
+.certificate-nav-btn.right { margin-left: 0.5rem; }
+
+  
