@@ -198,15 +198,16 @@ async function loadFeedback() {
 
     // Render each feedback entry as a card. No dataset attributes required.
     container.innerHTML = feedbackList.map(entry => `
-      <div class="feedback-card">
-        <img src="assets/images/avator- (9).png" alt="Avatar">
-        <div class="feedback-content">
-          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
-          <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
-          <div class="feedback-meta">${entry.Email__c ? `📧 ${entry.Email__c}` : ''}</div>
-        </div>
-      </div>
-    `).join('');
+  <div class="feedback-card">
+    <img src="assets/images/avator- (9).png" alt="Avatar">
+    <div class="feedback-content">
+      <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+      <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
+      <div class="feedback-meta">${entry.Email__c ? '📧 ' + entry.Email__c : ''}</div>
+    </div>
+  </div>
+`).join('');
+
 
   } catch (err) {
     console.error('Error fetching feedback:', err);
