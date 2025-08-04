@@ -288,3 +288,29 @@ document.getElementById('modal-name').textContent = card.dataset.name || 'No nam
 document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
 document.getElementById('modal-email').textContent = card.dataset.email;
 
+
+// slider function for cards
+  const list = document.getElementById("testimonialsList");
+  const leftArrow = document.getElementById("leftArrow");
+  const rightArrow = document.getElementById("rightArrow");
+
+  // Show right arrow initially if there's overflow
+  window.addEventListener("load", updateArrows);
+  list.addEventListener("scroll", updateArrows);
+
+  leftArrow.addEventListener("click", () => {
+    list.scrollBy({ left: -300, behavior: "smooth" });
+  });
+
+  rightArrow.addEventListener("click", () => {
+    list.scrollBy({ left: 300, behavior: "smooth" });
+  });
+
+  function updateArrows() {
+    const maxScrollLeft = list.scrollWidth - list.clientWidth;
+    leftArrow.style.display = list.scrollLeft > 0 ? "block" : "none";
+    rightArrow.style.display = list.scrollLeft < maxScrollLeft ? "block" : "none";
+  }
+
+
+
