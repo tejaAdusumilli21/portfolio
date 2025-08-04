@@ -23,6 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" integrity="sha512-o8Oz5nlfh/wn2cDRoohU80FjplJn6j2FVta+i9NgrU6/DRyzxwGQ+R/XcTHo+wWdaDcV34+wr5FNWjO4gqGI+Q==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
 <body>
@@ -463,7 +464,7 @@ His ability to understand complex requirements and translate them into efficient
 
   <div class="testimonials-wrapper">
     <button class="testimonial-nav-btn left" onclick="scrollTestimonials(-1)">
-      <i class="fa-solid fa-chevron-left"></i>
+       <ion-icon name="chevron-back-outline"></ion-icon>
     </button>
 
     <ul class="testimonials-list has-scrollbar">
@@ -594,7 +595,7 @@ His ability to understand complex requirements and translate them into efficient
     </ul>
 
     <button class="testimonial-nav-btn right" onclick="scrollTestimonials(1)">
-      <i class="fa-solid fa-chevron-right"></i>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
     </button>
   </div>
 
@@ -1646,28 +1647,32 @@ His ability to understand complex requirements and translate them into efficient
   </style>
  <style>
 /*    new slider Style  */
-.testimonials-wrapper {
+/* .testimonials-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-}
+} */
 
-.testimonial-nav-btn {
+/* .testimonial-nav-btn {
   background: transparent;
-  border: none;
-  color: #fff;        /* match your site’s color scheme */
-  font-size: 1.5rem;
+  border: none; */
+/*   color: #fff;        match your site’s color scheme */ 
+/*   font-size: 1.5rem;
   cursor: pointer;
   z-index: 10;
   padding: 0.5rem;
-}
+} */
 
-.testimonial-nav-btn.left {
+/* .testimonial-nav-btn.left {
   margin-right: 0.5rem;
 }
 
 .testimonial-nav-btn.right {
   margin-left: 0.5rem;
+} */
+.testimonial-nav-btn {
+  color: var(--orange-yellow-crayola);
+  font-size: 1.8rem;
 }
 
  </style>  
