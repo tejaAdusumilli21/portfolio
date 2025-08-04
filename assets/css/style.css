@@ -2135,7 +2135,74 @@ textarea.form-input::-webkit-resizer { display: none; }
         right: 20px;
       }
     }
- 
+ /* Feedback modal overlay */
+#feedbackModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Layout container for the card */
+#feedbackModal .modal-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: var(--eerie-black-2); /* reuse your existing dark card colour */
+  padding: 30px;
+  border-radius: 14px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: var(--shadow-3);
+  position: relative;
+}
+
+/* Avatar styling */
+#feedbackModal .modal-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Name */
+#feedbackModal .modal-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--white-2);
+}
+
+/* Email line */
+#feedbackModal .modal-email {
+  font-size: 0.85rem;
+  color: var(--light-gray-70);
+  margin-bottom: 12px;
+}
+
+/* Comment / testimonial text */
+#feedbackModal .modal-comment {
+  font-size: 1rem;
+  color: var(--light-gray);
+  line-height: 1.6;
+}
+
+/* Close button */
+#feedbackModal .close-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 24px;
+  color: var(--light-gray);
+  cursor: pointer;
+}
+
     /*    new slider Style  */
    /* === Testimonials slider navigation === */
 .testimonials-wrapper {
