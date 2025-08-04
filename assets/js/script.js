@@ -268,9 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.getElementById('modal-name').textContent = card.dataset.name || 'No name';
-document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
-document.getElementById('modal-email').textContent = card.dataset.email;
+
 
 
 // slider function for cards
