@@ -249,6 +249,12 @@ document.addEventListener('DOMContentLoaded', () => {
   attachFeedbackClickHandler();
   attachCloseModalHandler();
 });
+// To open the modal
+document.getElementById('feedbackModal').classList.add('show');
+
+// To close it
+document.getElementById('feedbackModal').classList.remove('show');
+
 
 
 // slider function for cards
