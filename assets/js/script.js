@@ -258,8 +258,8 @@ async function loadFeedback() {
     // Attach modal click listeners
     document.querySelectorAll('.feedback-card').forEach(card => {
       card.addEventListener('click', () => {
-        document.getElementById('modal-name').textContent = card.dataset.name;
-        document.getElementById('modal-comment').textContent = card.dataset.comment;
+        document.getElementById('modal-name').textContent =  card.childNodes[3].childNodes[1].innerText;//card.dataset.name;
+        document.getElementById('modal-comment').textContent = card.childNodes[3].childNodes[3].innerText;//card.dataset.comment;
         document.getElementById('modal-avatar').src = card.dataset.avatar;
         document.getElementById('feedbackModal').classList.remove('hidden');
       });
