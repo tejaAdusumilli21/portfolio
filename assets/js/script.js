@@ -320,8 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // cerificate Scroll
 
 function scrollCertifications(direction) {
-  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
-  const card = container.querySelector('.testimonials-item');
+  const container = document.querySelector('.certificate-wrapper .certificate-list');
+  const card = container.querySelector('.certificate-item');
   if (!container || !card) return;
 
   // Get the actual gap between items (works in modern browsers)
@@ -335,9 +335,9 @@ function scrollCertifications(direction) {
   });
 }
 function updateArrowVisibility() {
-  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
-  const prevBtn = document.querySelector('.testimonial-nav-btn.left');
-  const nextBtn = document.querySelector('.testimonial-nav-btn.right');
+  const container = document.querySelector('.certificate-wrapper .certificate-list');
+  const prevBtn = document.querySelector('.certificate-nav-btn.left');
+  const nextBtn = document.querySelector('.certificate-nav-btn.right');
 
   // Hide prev button at far left
   if (container.scrollLeft <= 0) {
@@ -357,7 +357,7 @@ function updateArrowVisibility() {
 // Run on load and whenever the list is scrolled
 document.addEventListener('DOMContentLoaded', () => {
   updateArrowVisibility();
-  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  const container = document.querySelector('.certificate-wrapper .certificate-list');
   container.addEventListener('scroll', updateArrowVisibility);
 });
 

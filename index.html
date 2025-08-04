@@ -690,11 +690,11 @@ His ability to understand complex requirements and translate them into efficient
         <section class="clients">
 
           <h3 class="h3 clients-title">Certifications</h3>
-          <div class="testimonials-wrapper">
-              <button class="testimonial-nav-btn left" onclick="scrollCertifications(-1)">
+          <div class="certificate-wrapper">
+              <button class="certificate-nav-btn left" onclick="scrollCertifications(-1)">
               <ion-icon name="chevron-back-outline"></ion-icon>
             </button>
-          <ul class="clients-list  testimonials-list has-scrollbar">
+          <ul class="clients-list  certificate-list has-scrollbar">
 
             <li class="clients-item">
               <a href="#">
@@ -742,7 +742,7 @@ His ability to understand complex requirements and translate them into efficient
               </a>
             </li>
           </ul>
-            <button class="testimonial-nav-btn right" onclick="scrollCertifications(1)">
+            <button class="certificate-nav-btn right" onclick="scrollCertifications(1)">
               <ion-icon name="chevron-forward-outline"></ion-icon>
             </button>
           </div>
@@ -1722,6 +1722,29 @@ His ability to understand complex requirements and translate them into efficient
     }
 
     .testimonial-nav-btn {
+      color: var(--orange-yellow-crayola);
+      font-size: 1.8rem;
+    }
+     .certificate-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .certificate-wrapper .certificate-list {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .certificate-nav-btn.left {
+      margin-right: 0.5rem;
+    }
+
+    .certificate-nav-btn.right {
+      margin-left: 0.5rem;
+    }
+
+    .certificate-nav-btn {
       color: var(--orange-yellow-crayola);
       font-size: 1.8rem;
     }
