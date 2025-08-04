@@ -457,14 +457,18 @@ His ability to understand complex requirements and translate them into efficient
 
 <!--     new slider cards     -->
 
-<section class="testimonial-section">
-  <div class="testimonials-wrapper" data-testimonials-wrapper style="position: relative;">
-     <button class="left-arrow" data-left-arrow style="display: none;">&#10094;</button>
+<section class="testimonials">
 
-    <ul class="testimonials-list" data-testimonials-list id="testimonialsList">
-<!--       <ul class="testimonials-list has-scrollbar"> -->
+  <h3 class="h3 testimonials-title">Collaboration</h3>
 
-            <li class="testimonials-item">
+  <div class="testimonials-wrapper">
+    <button class="testimonial-nav-btn left" onclick="scrollTestimonials(-1)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <ul class="testimonials-list has-scrollbar">
+      <!-- the existing <li class="testimonials-item"> … </li> content stays unchanged -->
+      <li class="testimonials-item">
               <div class="content-card" data-testimonials-item>
 
                 <figure class="testimonials-avatar-box">
@@ -587,12 +591,13 @@ His ability to understand complex requirements and translate them into efficient
 
               </div>
             </li>
-
-<!--           </ul> -->
     </ul>
 
-    <button class="right-arrow" data-right-arrow style="display: none;">&#10095;</button>
+    <button class="testimonial-nav-btn right" onclick="scrollTestimonials(1)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
   </div>
+
 </section>
 
 
@@ -1641,28 +1646,30 @@ His ability to understand complex requirements and translate them into efficient
   </style>
  <style>
 /*    new slider Style  */
-.left-arrow,
-.right-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  font-size: 2rem;
-  background-color: rgba(255, 255, 255, 0.85); /* light bg */
+.testimonials-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.testimonial-nav-btn {
+  background: transparent;
   border: none;
+  color: #fff;        /* match your site’s color scheme */
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.3rem 0.6rem;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+  padding: 0.5rem;
 }
 
-.left-arrow {
-  left: 5px;
+.testimonial-nav-btn.left {
+  margin-right: 0.5rem;
 }
 
-.right-arrow {
-  right: 5px;
+.testimonial-nav-btn.right {
+  margin-left: 0.5rem;
 }
+
  </style>  
 </body>
 
