@@ -290,27 +290,27 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 
 
 // slider function for cards
+  document.addEventListener("DOMContentLoaded", () => {
   const list = document.getElementById("testimonialsList");
   const leftArrow = document.getElementById("leftArrow");
   const rightArrow = document.getElementById("rightArrow");
+  const scrollAmount = 300;
 
-  // Show right arrow initially if there's overflow
-  window.addEventListener("load", updateArrows);
-  list.addEventListener("scroll", updateArrows);
-
-  leftArrow.addEventListener("click", () => {
-    list.scrollBy({ left: -300, behavior: "smooth" });
-  });
-
-  rightArrow.addEventListener("click", () => {
-    list.scrollBy({ left: 300, behavior: "smooth" });
-  });
-
-  function updateArrows() {
+  const updateArrows = () => {
     const maxScrollLeft = list.scrollWidth - list.clientWidth;
     leftArrow.style.display = list.scrollLeft > 0 ? "block" : "none";
     rightArrow.style.display = list.scrollLeft < maxScrollLeft ? "block" : "none";
-  }
+  };
 
+  const scrollList = (direction) => {
+    list.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+  };
 
+  leftArrow.addEventListener("click", () => scrollList(-1));
+  rightArrow.addEventListener("click", () => scrollList(1));
+  list.addEventListener("scroll", updateArrows);
+
+  // Initialize on load
+  updateArrows();
+});
 
