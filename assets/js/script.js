@@ -291,14 +291,45 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 
 // slider function for cards
 
- function scrollTestimonials(direction) {
-    const container = document.querySelector('.testimonials-list');
-    const card = container.querySelector('.testimonials-item');
-    if (!container || !card) return;
+function scrollTestimonials(direction) {
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  const card = container.querySelector('.testimonials-item');
+  if (!container || !card) return;
 
-    const scrollAmount = card.offsetWidth + parseFloat(getComputedStyle(card).marginRight || 0);
-    container.scrollBy({
-      left: direction * scrollAmount,
-      behavior: 'smooth'
-    });
+  // Get the actual gap between items (works in modern browsers)
+  const gap = parseFloat(getComputedStyle(container).gap || 0);
+  const cardWidth = card.getBoundingClientRect().width;
+
+  const scrollAmount = cardWidth + gap;
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth',
+  });
+}
+function updateArrowVisibility() {
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  const prevBtn = document.querySelector('.testimonial-nav-btn.left');
+  const nextBtn = document.querySelector('.testimonial-nav-btn.right');
+
+  // Hide prev button at far left
+  if (container.scrollLeft <= 0) {
+    prevBtn.style.visibility = 'hidden';
+  } else {
+    prevBtn.style.visibility = 'visible';
   }
+
+  // Hide next button at far right
+  if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
+    nextBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.style.visibility = 'visible';
+  }
+}
+
+// Run on load and whenever the list is scrolled
+document.addEventListener('DOMContentLoaded', () => {
+  updateArrowVisibility();
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  container.addEventListener('scroll', updateArrowVisibility);
+});
+
