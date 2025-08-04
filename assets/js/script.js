@@ -228,19 +228,7 @@ async function loadFeedback() {
       return;
     }
 
-    // container.innerHTML = feedbackList.map(entry => `
-    //   <div class="feedback-card"
-    //     data-name="${entry.Name || 'Anonymous'}"
-    //     data-comment="${entry.Comments__c || 'No comment provided.'}"
-    //     data-avatar="assets/images/avator- (9).png">
-        
-    //     <img src="assets/images/avator- (9).png" class="feedback-avatar" alt="Avatar">
-    //     <div>
-    //       <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
-    //       <div class="feedback-snippet">${(entry.Comments__c || 'No comment provided.').slice(0, 100)}...</div>
-    //     </div>
-    //   </div>
-    // `).join('');
+    
 
 
     container.innerHTML = feedbackList.map(entry => `
@@ -279,11 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('feedbackModal').classList.add('hidden');
   });
 });
-// Sample JS to populate modal
-// document.getElementById('modal-avatar').src = user.avatar;
-// document.getElementById('modal-name').textContent = user.name;
-// document.getElementById('modal-email').textContent = user.email;
-// document.getElementById('modal-comments').textContent = user.comments;
+
 document.getElementById('modal-name').textContent = card.dataset.name || 'No name';
 document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
 document.getElementById('modal-email').textContent = card.dataset.email;
@@ -292,6 +276,50 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 // slider function for cards
 
 function scrollTestimonials(direction) {
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  const card = container.querySelector('.testimonials-item');
+  if (!container || !card) return;
+
+  // Get the actual gap between items (works in modern browsers)
+  const gap = parseFloat(getComputedStyle(container).gap || 0);
+  const cardWidth = card.getBoundingClientRect().width;
+
+  const scrollAmount = cardWidth + gap;
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth',
+  });
+}
+function updateArrowVisibility() {
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  const prevBtn = document.querySelector('.testimonial-nav-btn.left');
+  const nextBtn = document.querySelector('.testimonial-nav-btn.right');
+
+  // Hide prev button at far left
+  if (container.scrollLeft <= 0) {
+    prevBtn.style.visibility = 'hidden';
+  } else {
+    prevBtn.style.visibility = 'visible';
+  }
+
+  // Hide next button at far right
+  if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
+    nextBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.style.visibility = 'visible';
+  }
+}
+
+// Run on load and whenever the list is scrolled
+document.addEventListener('DOMContentLoaded', () => {
+  updateArrowVisibility();
+  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
+  container.addEventListener('scroll', updateArrowVisibility);
+});
+
+// cerificate Scroll
+
+function scrollCertifications(direction) {
   const container = document.querySelector('.testimonials-wrapper .testimonials-list');
   const card = container.querySelector('.testimonials-item');
   if (!container || !card) return;

@@ -2,20 +2,20 @@ vCard - Personal Portfolio
 
 # sidebar
 
-alt = Richard hanrick
-Richard hanrick
+alt = teja Adusumilli
+teja Adusumilli
 Web developer
 
 Show Contacts
 
 Email
-richard@example.com
+teamteja3@gmail.com
 
 Phone
-+1 (213) 352-2795
++919502171788
 
 Birthday
-June 23, 1982
+Sep 21, 1993
 
 Location
 Sacramento, California, USA
