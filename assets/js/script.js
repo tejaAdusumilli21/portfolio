@@ -334,7 +334,7 @@ function scrollCertifications(direction) {
     behavior: 'smooth',
   });
 }
-function updateArrowVisibility() {
+function updateArrowVisibility1() {
   const container = document.querySelector('.certificate-wrapper .certificate-list');
   const prevBtn = document.querySelector('.certificate-nav-btn.left');
   const nextBtn = document.querySelector('.certificate-nav-btn.right');
@@ -356,8 +356,8 @@ function updateArrowVisibility() {
 
 // Run on load and whenever the list is scrolled
 document.addEventListener('DOMContentLoaded', () => {
-  updateArrowVisibility();
+  updateArrowVisibility1();
   const container = document.querySelector('.certificate-wrapper .certificate-list');
-  container.addEventListener('scroll', updateArrowVisibility);
+  container.addEventListener('scroll', updateArrowVisibility1);
 });
 
