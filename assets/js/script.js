@@ -274,90 +274,83 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 
 
 // slider function for cards
-
+/* === Testimonials slider logic === */
 function scrollTestimonials(direction) {
   const container = document.querySelector('.testimonials-wrapper .testimonials-list');
   const card = container.querySelector('.testimonials-item');
   if (!container || !card) return;
 
-  // Get the actual gap between items (works in modern browsers)
   const gap = parseFloat(getComputedStyle(container).gap || 0);
   const cardWidth = card.getBoundingClientRect().width;
-
   const scrollAmount = cardWidth + gap;
+
   container.scrollBy({
     left: direction * scrollAmount,
-    behavior: 'smooth',
+    behavior: 'smooth'
   });
 }
-function updateArrowVisibility() {
+
+function updateArrowVisibilityTestimonials() {
   const container = document.querySelector('.testimonials-wrapper .testimonials-list');
   const prevBtn = document.querySelector('.testimonial-nav-btn.left');
   const nextBtn = document.querySelector('.testimonial-nav-btn.right');
 
-  // Hide prev button at far left
-  if (container.scrollLeft <= 0) {
-    prevBtn.style.visibility = 'hidden';
-  } else {
-    prevBtn.style.visibility = 'visible';
-  }
+  prevBtn.style.visibility =
+    container.scrollLeft <= 0 ? 'hidden' : 'visible';
 
-  // Hide next button at far right
-  if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
-    nextBtn.style.visibility = 'hidden';
-  } else {
-    nextBtn.style.visibility = 'visible';
-  }
+  nextBtn.style.visibility =
+    container.scrollLeft + container.clientWidth >= container.scrollWidth - 1
+      ? 'hidden'
+      : 'visible';
 }
 
-// Run on load and whenever the list is scrolled
-document.addEventListener('DOMContentLoaded', () => {
-  updateArrowVisibility();
-  const container = document.querySelector('.testimonials-wrapper .testimonials-list');
-  container.addEventListener('scroll', updateArrowVisibility);
-});
-
-// cerificate Scroll
-
+/* === Certifications slider logic === */
 function scrollCertifications(direction) {
   const container = document.querySelector('.certificate-wrapper .certificate-list');
-  const card = container.querySelector('.certificate-item');
+  const card = container.querySelector('.certificate-item'); // finds any card
   if (!container || !card) return;
 
-  // Get the actual gap between items (works in modern browsers)
   const gap = parseFloat(getComputedStyle(container).gap || 0);
   const cardWidth = card.getBoundingClientRect().width;
-
   const scrollAmount = cardWidth + gap;
+
   container.scrollBy({
     left: direction * scrollAmount,
-    behavior: 'smooth',
+    behavior: 'smooth'
   });
 }
-function updateArrowVisibility1() {
+
+function updateArrowVisibilityCertificates() {
   const container = document.querySelector('.certificate-wrapper .certificate-list');
   const prevBtn = document.querySelector('.certificate-nav-btn.left');
   const nextBtn = document.querySelector('.certificate-nav-btn.right');
 
-  // Hide prev button at far left
-  if (container.scrollLeft <= 0) {
-    prevBtn.style.visibility = 'hidden';
-  } else {
-    prevBtn.style.visibility = 'visible';
-  }
+  prevBtn.style.visibility =
+    container.scrollLeft <= 0 ? 'hidden' : 'visible';
 
-  // Hide next button at far right
-  if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
-    nextBtn.style.visibility = 'hidden';
-  } else {
-    nextBtn.style.visibility = 'visible';
-  }
+  nextBtn.style.visibility =
+    container.scrollLeft + container.clientWidth >= container.scrollWidth - 1
+      ? 'hidden'
+      : 'visible';
 }
 
-// Run on load and whenever the list is scrolled
+/* === Attach event listeners on DOM ready === */
 document.addEventListener('DOMContentLoaded', () => {
-  updateArrowVisibility1();
-  const container = document.querySelector('.certificate-wrapper .certificate-list');
-  container.addEventListener('scroll', updateArrowVisibility1);
-});
+  // Testimonials
+  updateArrowVisibilityTestimonials();
+  const testimonialsContainer = document.querySelector('.testimonials-wrapper .testimonials-list');
+  testimonialsContainer.addEventListener('scroll', updateArrowVisibilityTestimonials);
+  document.querySelector('.testimonial-nav-btn.left')
+          .addEventListener('click', () => scrollTestimonials(-1));
+  document.querySelector('.testimonial-nav-btn.right')
+          .addEventListener('click', () => scrollTestimonials(1));
 
+  // Certifications
+  updateArrowVisibilityCertificates();
+  const certificateContainer = document.querySelector('.certificate-wrapper .certificate-list');
+  certificateContainer.addEventListener('scroll', updateArrowVisibilityCertificates);
+  document.querySelector('.certificate-nav-btn.left')
+          .addEventListener('click', () => scrollCertifications(-1));
+  document.querySelector('.certificate-nav-btn.right')
+          .addEventListener('click', () => scrollCertifications(1));
+});
