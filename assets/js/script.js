@@ -291,16 +291,17 @@ document.getElementById('modal-email').textContent = card.dataset.email;
 
 // slider function for cards
 
+
   document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector("[data-testimonials-wrapper]");
     const list = document.querySelector("[data-testimonials-list]");
     const leftArrow = document.querySelector("[data-left-arrow]");
     const rightArrow = document.querySelector("[data-right-arrow]");
 
-    // Scroll step size (card width)
+    if (!container || !list || !leftArrow || !rightArrow) return;
+
     const scrollAmount = 300;
 
-    // Handle arrow clicks
     leftArrow.addEventListener("click", () => {
       list.scrollBy({ left: -scrollAmount, behavior: "smooth" });
     });
@@ -309,16 +310,23 @@ document.getElementById('modal-email').textContent = card.dataset.email;
       list.scrollBy({ left: scrollAmount, behavior: "smooth" });
     });
 
-    // Show/hide arrows based on scroll position
     function updateArrows() {
       const maxScrollLeft = list.scrollWidth - list.clientWidth;
-      leftArrow.style.display = list.scrollLeft > 0 ? "block" : "none";
-      rightArrow.style.display = list.scrollLeft < maxScrollLeft ? "block" : "none";
+
+      if (maxScrollLeft <= 0) {
+        leftArrow.style.display = "none";
+        rightArrow.style.display = "none";
+        return;
+      }
+
+      leftArrow.style.display = list.scrollLeft > 10 ? "block" : "none";
+      rightArrow.style.display = list.scrollLeft < maxScrollLeft - 10 ? "block" : "none";
     }
 
-    // Call on scroll and on load
     list.addEventListener("scroll", updateArrows);
+    window.addEventListener("resize", updateArrows);
     window.addEventListener("load", updateArrows);
+    updateArrows();
   });
 
 
