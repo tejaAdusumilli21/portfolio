@@ -461,7 +461,7 @@ His ability to understand complex requirements and translate them into efficient
   <div class="testimonials-wrapper" data-testimonials-wrapper>
     <button class="left-arrow" data-left-arrow>&#10094;</button>
 
-    <ul class="testimonials-list" data-testimonials-list>
+    <ul class="testimonials-list" data-testimonials-list id="testimonialsList">
 <!--       <ul class="testimonials-list has-scrollbar"> -->
 
             <li class="testimonials-item">
@@ -1641,83 +1641,26 @@ His ability to understand complex requirements and translate them into efficient
   </style>
  <style>
 /*    new slider Style  */
-/* .testimonial-section {
-  background: #111;
-  padding: 40px;
-  color: #fff;
-  position: relative;
-}
-
-.testimonial-title {
-  text-align: center;
+.left-arrow,
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
   font-size: 2rem;
-  margin-bottom: 20px;
-} */
-
-.nav-arrows {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.arrow-btn {
-  background: #ffcb2f;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: light background */
   border: none;
-  border-radius: 50%;
-  padding: 10px 15px;
-  font-size: 24px;
   cursor: pointer;
-  margin: 0 10px;
-  transition: background 0.3s ease;
+  padding: 0.5rem;
 }
 
-.arrow-btn:hover {
-  background: #ffc107;
-}
-/*
-.testimonial-carousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
+.left-arrow {
+  left: 10px;
 }
 
-.testimonial-carousel::-webkit-scrollbar {
-  display: none;
+.right-arrow {
+  right: 10px;
 }
-
-.testimonial-card {
-  background: #1e1e1e;
-  border-radius: 16px;
-  padding: 20px;
-  min-width: 280px;
-  max-width: 280px;
-  flex-shrink: 0;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(255, 203, 47, 0.2);
-  transition: transform 0.3s;
-}
-
- .testimonial-card:hover {
-  transform: scale(1.03);
-}
-
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
-
-.testimonial-name {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.testimonial-text {
-  font-size: 0.95rem;
-  line-height: 1.4;
-} */
 
  </style>  
 </body>
