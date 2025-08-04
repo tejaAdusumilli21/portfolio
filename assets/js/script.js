@@ -256,36 +256,36 @@ async function loadFeedback() {
 
 
     // Attach modal click listeners
-    document.querySelectorAll('.feedback-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.getElementById('modal-name').textContent = card.dataset.name;
-        document.getElementById('modal-comment').textContent = card.dataset.comment;
-        document.getElementById('modal-avatar').src = card.dataset.avatar;
-        document.getElementById('feedbackModal').classList.remove('hidden');
-      });
-    });
+//     document.querySelectorAll('.feedback-card').forEach(card => {
+//       card.addEventListener('click', () => {
+//         document.getElementById('modal-name').textContent = card.dataset.name;
+//         document.getElementById('modal-comment').textContent = card.dataset.comment;
+//         document.getElementById('modal-avatar').src = card.dataset.avatar;
+//         document.getElementById('feedbackModal').classList.remove('hidden');
+//       });
+//     });
 
-  } catch (err) {
-    console.error('Error fetching feedback:', err);
-    document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
-  }
-}
+//   } catch (err) {
+//     console.error('Error fetching feedback:', err);
+//     document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
+//   }
+// }
 
-document.addEventListener('DOMContentLoaded', loadFeedback);
+// document.addEventListener('DOMContentLoaded', loadFeedback);
 
 // Close modal
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.close-modal').addEventListener('click', () => {
-    document.getElementById('feedbackModal').classList.add('hidden');
-  });
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   document.querySelector('.close-modal').addEventListener('click', () => {
+//     document.getElementById('feedbackModal').classList.add('hidden');
+//   });
+// });
 // Sample JS to populate modal
 // document.getElementById('modal-avatar').src = user.avatar;
 // document.getElementById('modal-name').textContent = user.name;
 // document.getElementById('modal-email').textContent = user.email;
 // document.getElementById('modal-comments').textContent = user.comments;
-document.getElementById('modal-name').textContent = card.dataset.name || 'No name';
-document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
-document.getElementById('modal-email').textContent = card.dataset.email;
+// document.getElementById('modal-name').textContent = card.dataset.name || 'No name';
+// document.getElementById('modal-comment').textContent = card.dataset.comment || 'No comment';
+// document.getElementById('modal-email').textContent = card.dataset.email;
 
 
