@@ -2217,6 +2217,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   margin-left: 0;
   margin-right: 0;
 }
+#feedbackModal.modal.hidden { display: none; }
 
 .testimonial-nav-btn {
   background: none;
