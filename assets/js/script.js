@@ -225,35 +225,38 @@ async function loadFeedback() {
 }
 
 // Show modal when clicking a feedback card
+// Show modal when clicking a feedback card
 function attachFeedbackClickHandler() {
-  const container = document.getElementById("feedbackContainer");
+  const container = document.getElementById('feedbackContainer');
   if (!container) return;
 
-  container.addEventListener("click", (e) => {
-    const card = e.target.closest(".feedback-card");
+  container.addEventListener('click', (e) => {
+    const card = e.target.closest('.feedback-card');
     if (!card) return;
 
-    const avatarSrc = card.querySelector("img").src;
-    const name = card.querySelector(".feedback-name").innerText;
-    const comment = card.querySelector(".feedback-comment").innerText;
-    const email = card.querySelector(".feedback-meta").innerText;
+    // Populate modal fields
+    const avatarSrc = card.querySelector('img').src;
+    const name = card.querySelector('.feedback-name').innerText;
+    const comment = card.querySelector('.feedback-comment').innerText;
+    const email = card.querySelector('.feedback-meta').innerText;
 
-    document.getElementById("modal-avatar").src = avatarSrc;
-    document.getElementById("modal-name").textContent = name;
-    document.getElementById("modal-comment").textContent = comment;
-    document.getElementById("modal-email").textContent = email;
+    document.getElementById('modal-avatar').src = avatarSrc;
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-comment').textContent = comment;
+    document.getElementById('modal-email').textContent = email;
 
-    // Remove 'hidden' to show the feedback modal
-    document.getElementById("feedbackModal").classList.remove("hidden");
+    // Add 'show' to display the modal
+    document.getElementById('feedbackModal').classList.add('show');
   });
 }
 
 // Hide modal when the close button is clicked
 function attachCloseModalHandler() {
-  const closeBtn = document.querySelector(".close-modal");
+  const closeBtn = document.querySelector('.close-modal');
   if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      document.getElementById("feedbackModal").classList.add("hidden");
+    closeBtn.addEventListener('click', () => {
+      // Remove 'show' to hide the modal
+      document.getElementById('feedbackModal').classList.remove('show');
     });
   }
 }
