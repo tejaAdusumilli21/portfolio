@@ -2137,7 +2137,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     }
  /* Feedback modal overlay */
 #feedbackModal.modal {
- display: none;            /* hidden by default */
+ display: none;
   position: fixed;
   top: 0;
   left: 0;
