@@ -225,7 +225,6 @@ async function loadFeedback() {
 }
 
 // Show modal when clicking a feedback card
-// Show modal when clicking a feedback card
 function attachFeedbackClickHandler() {
   const container = document.getElementById('feedbackContainer');
   if (!container) return;
@@ -234,32 +233,33 @@ function attachFeedbackClickHandler() {
     const card = e.target.closest('.feedback-card');
     if (!card) return;
 
-    // Populate modal fields
+    // Extract values from the card
     const avatarSrc = card.querySelector('img').src;
     const name = card.querySelector('.feedback-name').innerText;
     const comment = card.querySelector('.feedback-comment').innerText;
     const email = card.querySelector('.feedback-meta').innerText;
 
+    // Populate the modal fields
     document.getElementById('modal-avatar').src = avatarSrc;
     document.getElementById('modal-name').textContent = name;
-    document.getElementById('modal-comment').textContent = comment;
     document.getElementById('modal-email').textContent = email;
+    document.getElementById('modal-comment').textContent = comment;
 
-    // Add 'show' to display the modal
+    // Show the modal using the .show class
     document.getElementById('feedbackModal').classList.add('show');
   });
 }
 
 // Hide modal when the close button is clicked
 function attachCloseModalHandler() {
-  const closeBtn = document.querySelector('.close-modal');
+  const closeBtn = document.querySelector('.feedback-close-btn');
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
-      // Remove 'show' to hide the modal
       document.getElementById('feedbackModal').classList.remove('show');
     });
   }
 }
+
 
 /* === Testimonials slider logic === */
 function scrollTestimonials(direction) {
