@@ -2137,15 +2137,15 @@ textarea.form-input::-webkit-resizer { display: none; }
     }
  /* Feedback modal overlay */
 #feedbackModal.modal {
-  display: none; /* hidden by default */
+ display: none;            /* hidden by default */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 #feedbackModal.modal.show {
@@ -2156,11 +2156,13 @@ textarea.form-input::-webkit-resizer { display: none; }
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  background: var(--eerie-black-2); /* reuse your existing dark card colour */
+  max-width: 600px;   /* limit overall width */
+  width: 90%;         /* responsive on smaller screens */
+  max-height: 80vh;   /* prevent it from filling the whole screen */
+  overflow-y: auto;   /* allow scrolling when text is long */
+  background: var(--eerie-black-2);
   padding: 30px;
   border-radius: 14px;
-  max-width: 600px;
-  width: 90%;
   box-shadow: var(--shadow-3);
   position: relative;
 }
@@ -2171,6 +2173,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 20px;
 }
 
 /* Name */
