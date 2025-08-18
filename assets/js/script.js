@@ -185,46 +185,33 @@ function showToast(message) {
 
 async function loadFeedback() {
   try {
-    const res = await fetch(
-      "https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/"
-    );
+    const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
     const feedbackList = await res.json();
-    const container = document.getElementById("feedbackContainer");
+    const container = document.getElementById('feedbackContainer');
 
     if (!Array.isArray(feedbackList) || feedbackList.length === 0) {
-      container.innerHTML = "<p>No feedback found.</p>";
+      container.innerHTML = '<p>No feedback found.</p>';
       return;
     }
 
-    // Render each feedback entry as a card
-    container.innerHTML = feedbackList
-      .map(
-        (entry) => `
+    container.innerHTML = feedbackList.map(entry => `
       <div class="feedback-card">
+        <!-- Use a real avatar if your API has it; fallback to a local image -->
         <img src="assets/images/avator- (9).png" alt="Avatar">
         <div class="feedback-content">
-          <div class="feedback-name">${entry.Name || "Anonymous"}</div>
-          <div class="feedback-comment">${
-            entry.Comments__c || "No comment provided."
-          }</div>
-          <div class="feedback-meta">${
-            entry.Email__c ? "📧 " + entry.Email__c : ""
-          }</div>
+          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+          <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
+          <div class="feedback-meta">${entry.Email__c ? '📧 ' + entry.Email__c : ''}</div>
         </div>
       </div>
-    `
-      )
-      .join("");
+    `).join('');
   } catch (err) {
-    console.error("Error fetching feedback:", err);
-    const container = document.getElementById("feedbackContainer");
-    if (container) {
-      container.innerHTML = "<p>Error loading feedback.</p>";
-    }
+    console.error('Error fetching feedback:', err);
+    document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
   }
 }
 
-// Show modal when clicking a feedback card
+// Event delegation: open modal on card click
 function attachFeedbackClickHandler() {
   const container = document.getElementById('feedbackContainer');
   if (!container) return;
@@ -233,32 +220,37 @@ function attachFeedbackClickHandler() {
     const card = e.target.closest('.feedback-card');
     if (!card) return;
 
-    // Extract values from the card
     const avatarSrc = card.querySelector('img').src;
     const name = card.querySelector('.feedback-name').innerText;
     const comment = card.querySelector('.feedback-comment').innerText;
     const email = card.querySelector('.feedback-meta').innerText;
 
-    // Populate the modal fields
     document.getElementById('modal-avatar').src = avatarSrc;
     document.getElementById('modal-name').textContent = name;
-    document.getElementById('modal-email').textContent = email;
     document.getElementById('modal-comment').textContent = comment;
+    document.getElementById('modal-email').textContent = email;
 
-    // Show the modal using the .show class
     document.getElementById('feedbackModal').classList.add('show');
   });
 }
 
-// Hide modal when the close button is clicked
+// Close via X and backdrop
 function attachCloseModalHandler() {
-  const closeBtn = document.querySelector('.feedback-close-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      document.getElementById('feedbackModal').classList.remove('show');
-    });
-  }
+  const modal = document.getElementById('feedbackModal');
+  const closeBtn = modal.querySelector('.feedback-close-btn');
+  const backdrop = modal.querySelector('[data-close-modal]');
+
+  if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+  if (backdrop) backdrop.addEventListener('click', () => modal.classList.remove('show'));
 }
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  loadFeedback();
+  attachFeedbackClickHandler();
+  attachCloseModalHandler();
+});
+
 
 
 /* === Testimonials slider logic === */
