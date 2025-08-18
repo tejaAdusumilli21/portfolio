@@ -2137,36 +2137,43 @@ textarea.form-input::-webkit-resizer { display: none; }
     }
  /* Feedback modal overlay */
 #feedbackModal.modal {
- display: none;
+  display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
+  inset: 0;
   z-index: 1000;
 }
 #feedbackModal.modal.show {
-  display: flex; /* show when .show class is present */
+  display: block; /* show when .show class is present */
+}
+/* Dark backdrop */
+#feedbackModal .modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.8);
 }
 /* Layout container for the card */
-#feedbackModal .modal-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  max-width: 600px;   /* limit overall width */
-  width: 90%;         /* responsive on smaller screens */
-  max-height: 80vh;   /* prevent it from filling the whole screen */
-  overflow-y: auto;   /* allow scrolling when text is long */
-  background: var(--eerie-black-2);
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: var(--shadow-3);
+/* Dialog panel (reusing aesthetic of testimonials modal) */
+#feedbackModal .testimonials-modal {
   position: relative;
+  margin: 6vh auto;
+  max-width: 860px;         /* tweak as you like */
+  width: calc(100% - 32px); /* responsive on small screens */
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--eerie-black-2);
+  border: 1px solid var(--jet);
+  border-radius: 18px;
+  box-shadow: var(--shadow-5);
+  padding: 28px;
 }
-
+/* Make the content breathe */
+#feedbackModal .modal-content {
+  padding-top: 8px;
+}
+#feedbackModal .modal-text p {
+  color: var(--light-gray);
+  line-height: 1.7;
+}
 /* Avatar styling */
 #feedbackModal .modal-avatar {
   width: 80px;
@@ -2175,6 +2182,21 @@ textarea.form-input::-webkit-resizer { display: none; }
   object-fit: cover;
   margin-right: 20px;
 }
+/* Close button in the top-right of the panel */
+#feedbackModal .modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--onyx);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--white-2);
+  opacity: .8;
+}
+#feedbackModal .modal-close-btn:hover { opacity: 1; }
 
 /* Name */
 #feedbackModal .modal-name {
