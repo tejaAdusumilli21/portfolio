@@ -1075,28 +1075,29 @@ His ability to understand complex requirements and translate them into efficient
         </article>
         <!--
         - #FEEDBACK
-      -->
-        <article class="Feedback" data-page="feedback">
+      --><article class="Feedback" data-page="feedback">
   <header>
     <h2 class="h2 article-title">FeedBack</h2>
   </header>
+
   <div id="feedbackContainer" class="feedback-grid"></div>
 
-  <!-- Feedback modal -->
-  <div id="feedbackModal" class="modal">
+  <!-- Feedback modal (hidden until .show is added) -->
+  <div id="feedbackModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close-modal></div>
+
     <section class="testimonials-modal">
-      <!-- Close button -->
-      <button class="modal-close-btn feedback-close-btn">
+      <button class="modal-close-btn feedback-close-btn" aria-label="Close">
         <ion-icon name="close-outline"></ion-icon>
       </button>
-      <!-- Avatar and quote icon -->
+
       <div class="modal-img-wrapper">
         <figure class="modal-avatar-box">
           <img id="modal-avatar" src="./assets/images/avatar-1.png" alt="Avatar" width="80">
         </figure>
         <img src="./assets/images/icon-quote.svg" alt="quote icon">
       </div>
-      <!-- Text content -->
+
       <div class="modal-content">
         <h4 class="h3 modal-title" id="modal-name"></h4>
         <p id="modal-email"></p>
@@ -1104,9 +1105,10 @@ His ability to understand complex requirements and translate them into efficient
           <p id="modal-comment"></p>
         </div>
       </div>
-       </section>
+    </section>
   </div>
 </article>
+
 
 
         <!--
