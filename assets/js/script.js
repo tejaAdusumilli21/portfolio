@@ -181,8 +181,7 @@ function showToast(message) {
   }, 3000);
 }
 
-/* === Feedback loading and modal === */
-
+// Render cards
 async function loadFeedback() {
   try {
     const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
@@ -196,7 +195,6 @@ async function loadFeedback() {
 
     container.innerHTML = feedbackList.map(entry => `
       <div class="feedback-card">
-        <!-- Use a real avatar if your API has it; fallback to a local image -->
         <img src="assets/images/avator- (9).png" alt="Avatar">
         <div class="feedback-content">
           <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
@@ -205,13 +203,13 @@ async function loadFeedback() {
         </div>
       </div>
     `).join('');
-  } catch (err) {
-    console.error('Error fetching feedback:', err);
+  } catch (e) {
+    console.error(e);
     document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
   }
 }
 
-// Event delegation: open modal on card click
+// Open modal from a card (event delegation)
 function attachFeedbackClickHandler() {
   const container = document.getElementById('feedbackContainer');
   if (!container) return;
@@ -234,14 +232,15 @@ function attachFeedbackClickHandler() {
   });
 }
 
-// Close via X and backdrop
+// Close modal via X or backdrop
 function attachCloseModalHandler() {
   const modal = document.getElementById('feedbackModal');
-  const closeBtn = modal.querySelector('.feedback-close-btn');
-  const backdrop = modal.querySelector('[data-close-modal]');
-
-  if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-  if (backdrop) backdrop.addEventListener('click', () => modal.classList.remove('show'));
+  modal.querySelector('.feedback-close-btn').addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
+  modal.querySelector('.modal-backdrop').addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
 }
 
 // Init
