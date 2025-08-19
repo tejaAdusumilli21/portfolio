@@ -2137,41 +2137,46 @@ textarea.form-input::-webkit-resizer { display: none; }
     }
  /* Feedback modal overlay */
 #feedbackModal.modal {
-  display: none;
+ display: none;           /* hidden by default */
   position: fixed;
   inset: 0;
   z-index: 1000;
 }
 #feedbackModal.modal.show {
-  display: block; /* show when .show class is present */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* Dark backdrop */
 #feedbackModal .modal-backdrop {
-  position: absolute;
+   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.8);
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 0;              /* keep it below the panel */
 }
 /* Layout container for the card */
 /* Dialog panel (reusing aesthetic of testimonials modal) */
 #feedbackModal .testimonials-modal {
-  position: relative;
-  margin: 6vh auto;
-  max-width: 860px;         /* tweak as you like */
-  width: calc(100% - 32px); /* responsive on small screens */
-  max-height: 88vh;
-  overflow-y: auto;
-  background: var(--eerie-black-2);
-  border: 1px solid var(--jet);
+ position: relative;
+  z-index: 1;              /* <-- critical: above backdrop */
+  width: min(880px, calc(100% - 32px));
+  max-height: 85vh;
+  overflow: auto;
+
+  /* match your theme */
+  background: var(--eerie-black-2, #1b1b1b);
+  border: 1px solid var(--jet, #2b2b2b);
   border-radius: 18px;
-  box-shadow: var(--shadow-5);
+  box-shadow: 0 25px 50px rgba(0,0,0,.5);
   padding: 28px;
 }
 /* Make the content breathe */
 #feedbackModal .modal-content {
   padding-top: 8px;
+	color: var(--light-gray, #d1d1d1);
 }
 #feedbackModal .modal-text p {
-  color: var(--light-gray);
+  color: var(--light-gray, #d1d1d1);
   line-height: 1.7;
 }
 /* Avatar styling */
@@ -2184,17 +2189,15 @@ textarea.form-input::-webkit-resizer { display: none; }
 }
 /* Close button in the top-right of the panel */
 #feedbackModal .modal-close-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: var(--onyx);
+ position: absolute;
+  top: 12px; right: 12px;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  background: var(--onyx, #262626);
   border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  color: var(--white-2);
-  opacity: .8;
+  color: var(--white-2, #fff);
+  opacity: .85;
+  z-index: 2;              /* stays above everything inside */
 }
 #feedbackModal .modal-close-btn:hover { opacity: 1; }
 
@@ -2282,4 +2285,4 @@ textarea.form-input::-webkit-resizer { display: none; }
 .certificate-nav-btn.left  { margin-right: 0.5rem; }
 .certificate-nav-btn.right { margin-left: 0.5rem; }
 
-  
+  #feedbackModal .modal-title { color: var(--white-2, #fff); }
