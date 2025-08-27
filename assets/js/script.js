@@ -228,7 +228,8 @@ function attachFeedbackClickHandler() {
     document.getElementById('modal-comment').textContent = comment;
     document.getElementById('modal-email').textContent = email;
 
-    document.getElementById('feedbackModal').classList.add('show');
+    document.getElementById('feedbackModal').classList.add('active');
+
   });
 }
 
@@ -236,10 +237,12 @@ function attachFeedbackClickHandler() {
 function attachCloseModalHandler() {
   const modal = document.getElementById('feedbackModal');
   modal.querySelector('.feedback-close-btn').addEventListener('click', () => {
-    modal.classList.remove('show');
+    modal.classList.remove('active');
+
   });
   modal.querySelector('.modal-backdrop').addEventListener('click', () => {
-    modal.classList.remove('show');
+    modal.classList.remove('active');
+
   });
 }
 
@@ -324,34 +327,29 @@ document.addEventListener("DOMContentLoaded", () => {
   attachCloseModalHandler();
 
   // Testimonials
+ const testimonialsContainer = document.querySelector(
+  ".testimonials-wrapper .testimonials-list"
+);
+if (testimonialsContainer) {
   updateArrowVisibilityTestimonials();
-  const testimonialsContainer = document.querySelector(
-    ".testimonials-wrapper .testimonials-list"
-  );
-  testimonialsContainer.addEventListener(
-    "scroll",
-    updateArrowVisibilityTestimonials
-  );
-  document
-    .querySelector(".testimonial-nav-btn.left")
-    .addEventListener("click", () => scrollTestimonials(-1));
-  document
-    .querySelector(".testimonial-nav-btn.right")
-    .addEventListener("click", () => scrollTestimonials(1));
+  testimonialsContainer.addEventListener("scroll", updateArrowVisibilityTestimonials);
+  const tPrev = document.querySelector(".testimonial-nav-btn.left");
+  const tNext = document.querySelector(".testimonial-nav-btn.right");
+  tPrev && tPrev.addEventListener("click", () => scrollTestimonials(-1));
+  tNext && tNext.addEventListener("click", () => scrollTestimonials(1));
+}
+
 
   // Certifications
+ const certificateContainer = document.querySelector(
+  ".certificate-wrapper .certificate-list"
+);
+if (certificateContainer) {
   updateArrowVisibilityCertificates();
-  const certificateContainer = document.querySelector(
-    ".certificate-wrapper .certificate-list"
-  );
-  certificateContainer.addEventListener(
-    "scroll",
-    updateArrowVisibilityCertificates
-  );
-  document
-    .querySelector(".certificate-nav-btn.left")
-    .addEventListener("click", () => scrollCertifications(-1));
-  document
-    .querySelector(".certificate-nav-btn.right")
-    .addEventListener("click", () => scrollCertifications(1));
-});
+  certificateContainer.addEventListener("scroll", updateArrowVisibilityCertificates);
+  const cPrev = document.querySelector(".certificate-nav-btn.left");
+  const cNext = document.querySelector(".certificate-nav-btn.right");
+  cPrev && cPrev.addEventListener("click", () => scrollCertifications(-1));
+  cNext && cNext.addEventListener("click", () => scrollCertifications(1));
+}
+
