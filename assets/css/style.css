@@ -2135,4 +2135,92 @@ textarea.form-input::-webkit-resizer { display: none; }
         right: 20px;
       }
     }
+
+    /* Grid & cards */
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.loading { color: #cfcfcf; padding: 18px; }
+
+/* Card */
+.feedback-card {
+  cursor: pointer;
+  background: linear-gradient(180deg,#0f0f11,#111214);
+  color: #eee;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.feedback-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); }
+
+.card-avatar {
+  width:56px;
+  height:56px;
+  object-fit:cover;
+  border-radius:12px;
+  flex-shrink:0;
+  background:#222;
+}
+
+.feedback-content { flex:1; }
+.feedback-name { font-weight:700; font-size:16px; margin-bottom:4px; }
+.feedback-email { font-size:13px; color:#bfbfbf; margin-bottom:8px; }
+.feedback-comment { color:#d6d6d6; font-size:14px; line-height:1.5; max-height:4.5em; overflow:hidden; }
+
+/* Modal */
+.modal { display:none; }
+.modal.show {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background: rgba(0,0,0,0.6);
+  padding: 32px;
+  -webkit-overflow-scrolling: touch;
+}
+.testimonials-modal {
+  background:#161619;
+  color:#eee;
+  border-radius:14px;
+  padding:30px;
+  max-width:920px;
+  width:100%;
+  display:flex;
+  gap:28px;
+  align-items:flex-start;
+  position:relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+/* Avatar / quote */
+.modal-avatar-box img { width:96px; height:96px; object-fit:cover; border-radius:14px; display:block; }
+.modal-quote-icon { width:36px; margin-top:10px; opacity:.9; }
+
+/* Modal text */
+.modal-content { text-align:left; flex:1; }
+.modal-title { font-size:28px; margin:0 0 6px; }
+.modal-email { color:#cfcfcf; margin:0 0 12px; font-size:14px; }
+.modal-text p { font-size:17px; line-height:1.8; color:#ddd; margin:0; }
+
+/* Close button & backdrop */
+.modal-close-btn { position:absolute; right:18px; top:18px; background:transparent; border:none; color:#ddd; font-size:26px; cursor:pointer; z-index:2; }
+.modal-backdrop { position:absolute; inset:0; }
+
+/* Responsive tweaks */
+@media (max-width:720px){
+  .testimonials-modal { flex-direction:column; padding:20px; }
+  .modal-avatar-box img { width:84px; height:84px; }
+  .modal-title { font-size:20px; text-align:center; }
+  .modal-content { text-align:center; }
+}
  
