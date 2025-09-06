@@ -1,52 +1,57 @@
 "use strict";
 
-// Element toggle function
+// element toggle function
 const elementToggleFunc = function (elem) {
   elem.classList.toggle("active");
 };
 
-// Sidebar variables
+// sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
-// Sidebar toggle functionality for mobile
+// sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () {
   elementToggleFunc(sidebar);
 });
 
-// Testimonials variables
+// testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
 
-// Modal variables
+// modal variable
 const modalImg = document.querySelector("[data-modal-img]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
 
-// Modal toggle function
+// modal toggle function
 const testimonialsModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
 };
 
-// Add click event to all modal items
+// add click event to all modal items
 for (let i = 0; i < testimonialsItem.length; i++) {
   testimonialsItem[i].addEventListener("click", function () {
     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
     modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+    modalTitle.innerHTML = this.querySelector(
+      "[data-testimonials-title]"
+    ).innerHTML;
+    modalText.innerHTML = this.querySelector(
+      "[data-testimonials-text]"
+    ).innerHTML;
+
     testimonialsModalFunc();
   });
 }
 
-// Add click event to modal close button
+// add click event to modal close button
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
 
-// Custom select variables
+// custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
@@ -56,7 +61,7 @@ select.addEventListener("click", function () {
   elementToggleFunc(this);
 });
 
-// Add event in all select items
+// add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
   selectItems[i].addEventListener("click", function () {
     let selectedValue = this.innerText.toLowerCase();
@@ -66,7 +71,7 @@ for (let i = 0; i < selectItems.length; i++) {
   });
 }
 
-// Filter variables
+// filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
@@ -81,7 +86,7 @@ const filterFunc = function (selectedValue) {
   }
 };
 
-// Add event in all filter button items for large screen
+// add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
 for (let i = 0; i < filterBtn.length; i++) {
@@ -96,14 +101,15 @@ for (let i = 0; i < filterBtn.length; i++) {
   });
 }
 
-// Contact form variables
+// contact form variables
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
-// Add event to all form input fields
+// add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
+    // check form validation
     if (form.checkValidity()) {
       formBtn.removeAttribute("disabled");
     } else {
@@ -112,31 +118,30 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
-// Page navigation variables
+// page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// Add event to all nav links
+// add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-    for (let j = 0; j < pages.length; j++) {
-      if (this.innerHTML.toLowerCase() === pages[j].dataset.page) {
-        pages[j].classList.add("active");
-        navigationLinks[j].classList.add("active");
+    for (let i = 0; i < pages.length; i++) {
+      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
+        pages[i].classList.add("active");
+        navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
       } else {
-        pages[j].classList.remove("active");
-        navigationLinks[j].classList.remove("active");
+        pages[i].classList.remove("active");
+        navigationLinks[i].classList.remove("active");
       }
     }
   });
 }
 
-// Feedback form submit (if present)
 document.addEventListener("DOMContentLoaded", function () {
-  const feedbackForm = document.getElementById("feedbackForm");
-  if (feedbackForm) {
-    feedbackForm.addEventListener("submit", async function (e) {
+  document
+    .getElementById("feedbackForm")
+    .addEventListener("submit", async function (e) {
       e.preventDefault();
       const form = e.target;
       const formData = new FormData(form);
@@ -157,18 +162,16 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         );
 
-        await res.text();
-        form.reset();
+        const result = await res.text();
+        form.reset(); // clear form
         showToast("Feedback submitted!");
       } catch (err) {
         console.error("Feedback Error:", err);
         showToast("Error submitting feedback.");
       }
     });
-  }
 });
-
-// Toast message
+// toast message
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
@@ -180,8 +183,8 @@ function showToast(message) {
     toast.classList.add("hidden");
   }, 3000);
 }
+/* feedback.js */
 
-// Render cards
 async function loadFeedback() {
   try {
     const res = await fetch('https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/');
@@ -193,31 +196,33 @@ async function loadFeedback() {
       return;
     }
 
+    // Render each feedback entry as a card. No dataset attributes required.
     container.innerHTML = feedbackList.map(entry => `
-      <div class="feedback-card">
-        <img src="assets/images/avator- (9).png" alt="Avatar">
-        <div class="feedback-content">
-          <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
-          <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
-          <div class="feedback-meta">${entry.Email__c ? '📧 ' + entry.Email__c : ''}</div>
-        </div>
-      </div>
-    `).join('');
-  } catch (e) {
-    console.error(e);
+  <div class="feedback-card">
+    <img src="assets/images/avator- (9).png" alt="Avatar">
+    <div class="feedback-content">
+      <div class="feedback-name">${entry.Name || 'Anonymous'}</div>
+      <div class="feedback-comment">${entry.Comments__c || 'No comment provided.'}</div>
+      <div class="feedback-meta">${entry.Email__c ? '📧 ' + entry.Email__c : ''}</div>
+    </div>
+  </div>
+`).join('');
+
+
+  } catch (err) {
+    console.error('Error fetching feedback:', err);
     document.getElementById('feedbackContainer').innerHTML = '<p>Error loading feedback.</p>';
   }
 }
 
-// Open modal from a card (event delegation)
+// Delegate click events from the container to the cards
 function attachFeedbackClickHandler() {
   const container = document.getElementById('feedbackContainer');
-  if (!container) return;
-
   container.addEventListener('click', (e) => {
     const card = e.target.closest('.feedback-card');
     if (!card) return;
 
+    // Extract values from the card itself
     const avatarSrc = card.querySelector('img').src;
     const name = card.querySelector('.feedback-name').innerText;
     const comment = card.querySelector('.feedback-comment').innerText;
@@ -227,31 +232,32 @@ function attachFeedbackClickHandler() {
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-comment').textContent = comment;
     document.getElementById('modal-email').textContent = email;
-
-    document.getElementById('feedbackModal').classList.add('show');
+    document.getElementById('feedbackModal').classList.remove('hidden');
   });
 }
 
-// Close modal via X or backdrop
+// Close the modal when the X is clicked
 function attachCloseModalHandler() {
-  const modal = document.getElementById('feedbackModal');
-  modal.querySelector('.feedback-close-btn').addEventListener('click', () => {
-    modal.classList.remove('show');
-  });
-  modal.querySelector('.modal-backdrop').addEventListener('click', () => {
-    modal.classList.remove('show');
+  document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('feedbackModal').classList.add('hidden');
   });
 }
 
-// Init
+// Initialize everything on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   loadFeedback();
   attachFeedbackClickHandler();
   attachCloseModalHandler();
 });
+// To open the modal
+document.getElementById('feedbackModal').classList.add('show');
+
+// To close it
+document.getElementById('feedbackModal').classList.remove('show');
 
 
 
+// slider function for cards
 /* === Testimonials slider logic === */
 function scrollTestimonials(direction) {
   const container = document.querySelector(
@@ -278,6 +284,7 @@ function updateArrowVisibilityTestimonials() {
   const nextBtn = document.querySelector(".testimonial-nav-btn.right");
 
   prevBtn.style.visibility = container.scrollLeft <= 0 ? "hidden" : "visible";
+
   nextBtn.style.visibility =
     container.scrollLeft + container.clientWidth >= container.scrollWidth - 1
       ? "hidden"
@@ -289,7 +296,7 @@ function scrollCertifications(direction) {
   const container = document.querySelector(
     ".certificate-wrapper .certificate-list"
   );
-  const card = container.querySelector(".certificate-item");
+  const card = container.querySelector(".certificate-item"); // finds any card
   if (!container || !card) return;
 
   const gap = parseFloat(getComputedStyle(container).gap || 0);
@@ -310,6 +317,7 @@ function updateArrowVisibilityCertificates() {
   const nextBtn = document.querySelector(".certificate-nav-btn.right");
 
   prevBtn.style.visibility = container.scrollLeft <= 0 ? "hidden" : "visible";
+
   nextBtn.style.visibility =
     container.scrollLeft + container.clientWidth >= container.scrollWidth - 1
       ? "hidden"
@@ -318,11 +326,6 @@ function updateArrowVisibilityCertificates() {
 
 /* === Attach event listeners on DOM ready === */
 document.addEventListener("DOMContentLoaded", () => {
-  // Feedback
-  loadFeedback();
-  attachFeedbackClickHandler();
-  attachCloseModalHandler();
-
   // Testimonials
   updateArrowVisibilityTestimonials();
   const testimonialsContainer = document.querySelector(
