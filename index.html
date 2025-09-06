@@ -1076,37 +1076,32 @@ His ability to understand complex requirements and translate them into efficient
         <!--
         - #FEEDBACK
       -->
-       <!-- ===== FEEDBACK ARTICLE (replace existing Feedback block) ===== -->
-<article class="Feedback" data-page="feedback">
+        <article class="Feedback" data-page="feedback">
   <header>
-    <h2 class="h2 article-title">Feedback</h2>
+    <h2 class="h2 article-title">FeedBack</h2>
   </header>
 
-  <!-- Grid container where cards will be injected -->
-  <div id="feedbackContainer" class="feedback-grid" aria-live="polite">
-    <!-- Cards will be inserted here by JS -->
-    <div class="loading">Loading feedback…</div>
-  </div>
+  <div id="feedbackContainer" class="feedback-grid"></div>
 
   <!-- Feedback modal (hidden until .show is added) -->
-  <div id="feedbackModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="feedbackModal" class="modal" role="dialog" aria-modal="true">
     <div class="modal-backdrop" data-close-modal></div>
 
-    <section class="testimonials-modal" role="document" aria-labelledby="modal-name">
-      <button class="modal-close-btn feedback-close-btn" aria-label="Close modal">
-        &times;
+    <section class="testimonials-modal">
+      <button class="modal-close-btn feedback-close-btn" aria-label="Close">
+        <ion-icon name="close-outline"></ion-icon>
       </button>
 
       <div class="modal-img-wrapper">
         <figure class="modal-avatar-box">
-          <img id="modal-avatar" src="./assets/images/avatar-1.png" alt="Avatar" width="80" />
+          <img id="modal-avatar" src="./assets/images/avatar-1.png" alt="Avatar" width="80">
         </figure>
-        <img src="./assets/images/icon-quote.svg" alt="quote icon" class="modal-quote-icon" />
+        <img src="./assets/images/icon-quote.svg" alt="quote icon">
       </div>
 
       <div class="modal-content">
-        <h4 class="h3 modal-title" id="modal-name">Name</h4>
-        <p id="modal-email" class="modal-email"></p>
+        <h4 class="h3 modal-title" id="modal-name"></h4>
+        <p id="modal-email"></p>
         <div class="modal-text">
           <p id="modal-comment"></p>
         </div>
