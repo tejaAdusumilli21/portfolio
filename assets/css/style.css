@@ -2255,5 +2255,33 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .certificate-nav-btn.left  { margin-right: 0.5rem; }
 .certificate-nav-btn.right { margin-left: 0.5rem; }
+/* resume button */
+  .resume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* ensures button wraps on small screens */
+  gap: 12px;
+}
 
-  
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ff6600; /* accent color */
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+}
+
+.resume-btn:hover {
+  background: #e65500;
+  transform: translateY(-2px);
+}
+
+.resume-btn ion-icon {
+  font-size: 20px;
+}
