@@ -940,7 +940,7 @@ His ability to understand complex requirements and translate them into efficient
         <div id="feedbackContainer" class="feedback-grid"></div>
 
         <!-- Feedback modal (hidden until .show is added) -->
-        <div id="feedbackModal" class="modal" role="dialog" aria-modal="true">
+        <!-- <div id="feedbackModal" class="modal" role="dialog" aria-modal="true">
           <div class="modal-backdrop" data-close-modal></div>
 
           <section class="testimonials-modal">
@@ -963,7 +963,56 @@ His ability to understand complex requirements and translate them into efficient
               </div>
             </div>
           </section>
+        </div> -->
+        <!-- new design -->
+         <!-- START: Ta Modal Feedback (unique names: ta-*) -->
+<section class="ta-testimonials-section">
+  <div class="ta-container">
+    <h2 class="ta-heading">Feedback</h2>
+
+    <div class="ta-cards-grid">
+      <!-- Example card (repeat or generate dynamically) -->
+      <article class="ta-card" tabindex="0" role="button"
+               data-ta-title="Great work!"
+               data-ta-body="Teja delivered the feature ahead of schedule and with solid tests."
+               data-ta-img="assets/avatar1.jpg">
+        <img src="assets/avatar1.jpg" alt="avatar" class="ta-card-avatar">
+        <h3 class="ta-card-name">John Doe</h3>
+        <p class="ta-card-excerpt">"Great work — thorough and fast."</p>
+      </article>
+
+      <article class="ta-card" tabindex="0" role="button"
+               data-ta-title="Excellent communication"
+               data-ta-body="Always explains changes clearly and keeps the team up to date."
+               data-ta-img="assets/avatar2.jpg">
+        <img src="assets/avatar2.jpg" alt="avatar" class="ta-card-avatar">
+        <h3 class="ta-card-name">Jane Smith</h3>
+        <p class="ta-card-excerpt">"Excellent communication"</p>
+      </article>
+
+      <!-- Add more ta-card elements as needed -->
+    </div>
+  </div>
+
+  <!-- Single reusable modal (unique names) -->
+  <div class="ta-modal-root" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ta-modal-title" style="display:none;">
+    <div class="ta-modal-backdrop" data-ta-close></div>
+
+    <div class="ta-modal-window" role="document" tabindex="-1">
+      <button class="ta-modal-close-btn" aria-label="Close" data-ta-close>&times;</button>
+
+      <div class="ta-modal-content">
+        <img src="" alt="" class="ta-modal-avatar" id="ta-modal-avatar" />
+        <div class="ta-modal-textwrap">
+          <h3 id="ta-modal-title" class="ta-modal-title"></h3>
+          <p id="ta-modal-body" class="ta-modal-body"></p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: Ta Modal Feedback -->
+
       </article>
 
 

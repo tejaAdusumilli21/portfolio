@@ -436,3 +436,96 @@ document.addEventListener("DOMContentLoaded", () => {
   // expose for debugging
   window._feedback = { loadFeedback, openModalWithData, closeModal };
 })();
+// new js for model popup in feedback
+(function(){
+  // selectors (only new names)
+  const rootSelector = '.ta-modal-root';
+  const cardSelector = '.ta-card';
+  const closeAttr = 'data-ta-close';
+
+  const modalRoot = document.querySelector(rootSelector);
+  const modalWindow = modalRoot?.querySelector('.ta-modal-window');
+  const backdrop = modalRoot?.querySelector('.ta-modal-backdrop');
+  const closeButtons = modalRoot ? modalRoot.querySelectorAll('[' + closeAttr + ']') : [];
+  const avatarEl = document.getElementById('ta-modal-avatar');
+  const titleEl = document.getElementById('ta-modal-title');
+  const bodyEl = document.getElementById('ta-modal-body');
+
+  if (!modalRoot || !modalWindow) {
+    // modal missing — don't break the page
+    console.warn('TA modal: modal structure not found; aborting modal init.');
+    return;
+  }
+
+  let lastTrigger = null;
+
+  function openTaModalFromCard(card) {
+    lastTrigger = card;
+    const t = card.getAttribute('data-ta-title') || '';
+    const b = card.getAttribute('data-ta-body') || '';
+    const i = card.getAttribute('data-ta-img') || (card.querySelector('img')?.src || '');
+
+    titleEl.textContent = t;
+    bodyEl.textContent = b;
+
+    if (i) {
+      avatarEl.src = i;
+      avatarEl.alt = t ? (t + ' avatar') : 'avatar';
+      avatarEl.style.display = '';
+    } else {
+      avatarEl.style.display = 'none';
+      avatarEl.removeAttribute('src');
+      avatarEl.alt = '';
+    }
+
+    // show
+    modalRoot.style.display = 'flex';
+    modalRoot.setAttribute('aria-hidden','false');
+    // focus trap start
+    modalWindow.focus();
+    // prevent page scroll
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function closeTaModal() {
+    modalRoot.style.display = 'none';
+    modalRoot.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow = '';
+    // return focus to trigger
+    if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+    lastTrigger = null;
+  }
+
+  // wire cards
+  const cards = Array.from(document.querySelectorAll(cardSelector));
+  cards.forEach(card => {
+    card.addEventListener('click', () => openTaModalFromCard(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openTaModalFromCard(card);
+      }
+    });
+  });
+
+  // wire close buttons & backdrop
+  closeButtons.forEach(btn => btn.addEventListener('click', closeTaModal));
+  if (backdrop) backdrop.addEventListener('click', closeTaModal);
+
+  // ESC key closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalRoot.style.display !== 'none') {
+      closeTaModal();
+    }
+  });
+
+  // Basic focus trap: keep focus in modal when open
+  document.addEventListener('focus', function(e){
+    if (modalRoot.style.display === 'none') return;
+    if (!modalRoot.contains(e.target)) {
+      e.stopPropagation();
+      modalWindow.focus();
+    }
+  }, true);
+
+})();
