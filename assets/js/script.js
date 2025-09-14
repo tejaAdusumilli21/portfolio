@@ -479,3 +479,71 @@ document.addEventListener("DOMContentLoaded", () => {
   modalRoot.querySelectorAll('[data-ta-close]').forEach(btn=>btn.addEventListener('click', closeModal));
   document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalRoot.classList.contains('show')) closeModal(); });
 })();
+// plan b
+(function(){
+  // 1) ensure modal exists (lightweight)
+  if(!document.querySelector('.ta-modal-root')){
+    const css = `.ta-modal-root{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2147483646}.ta-modal-root.show{display:flex}.ta-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.52);backdrop-filter:blur(2px)}.ta-modal-window{position:relative;max-width:760px;width:calc(100% - 40px);margin:1rem;background:#fff;border-radius:12px;padding:20px;z-index:2147483647;box-shadow:0 30px 80px rgba(2,6,23,.25)}.ta-modal-close-btn{position:absolute;right:12px;top:8px;border:none;background:transparent;font-size:28px;cursor:pointer}.ta-modal-content{display:flex;gap:14px;align-items:flex-start}.ta-modal-avatar{width:88px;height:88px;border-radius:12px;object-fit:cover}.ta-modal-title{margin:0 0 8px;font-size:20px}.ta-modal-body{margin:0;color:#222;line-height:1.5}@media(max-width:560px){.ta-modal-content{flex-direction:column;align-items:center;text-align:center}.ta-modal-avatar{width:100px;height:100px}}`;
+    const s = document.createElement('style'); s.id='ta-modal-style2'; s.textContent = css; document.head.appendChild(s);
+    const modal = document.createElement('div'); modal.className='ta-modal-root'; modal.setAttribute('aria-hidden','true');
+    modal.innerHTML = `<div class="ta-modal-backdrop" data-ta-close></div>
+      <div class="ta-modal-window" role="document" tabindex="-1">
+        <button class="ta-modal-close-btn" aria-label="Close" data-ta-close>&times;</button>
+        <div class="ta-modal-content">
+          <img src="" alt="" class="ta-modal-avatar" id="ta-modal-avatar" />
+          <div>
+            <h3 id="ta-modal-title" class="ta-modal-title"></h3>
+            <p id="ta-modal-body" class="ta-modal-body"></p>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    // attach close handlers
+    modal.querySelectorAll('[data-ta-close]').forEach(b=>b.addEventListener('click', ()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; }));
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.classList.contains('show')) { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; }});
+    // container delegation (if not already present)
+    const container = document.getElementById('feedbackContainer') || document.querySelector('.feedback-grid') || document.body;
+    container.addEventListener('click', function(ev){
+      const el = ev.target.closest('[data-ta-title], [data-title], .feedback-card, .card, .testimonial, .ta-card, [data-feedback-id]');
+      if(!el) return;
+      const title = el.getAttribute('data-ta-title') || el.getAttribute('data-title') || el.querySelector('.name, h3, h4')?.textContent?.trim() || 'Feedback';
+      const body = el.getAttribute('data-ta-body') || el.getAttribute('data-body') || el.querySelector('.excerpt, p, .text')?.textContent?.trim() || el.textContent.trim().slice(0,800);
+      const img = el.getAttribute('data-ta-img') || el.querySelector('img')?.src || '';
+      document.getElementById('ta-modal-title').textContent = title;
+      document.getElementById('ta-modal-body').textContent = body;
+      const avatar = document.getElementById('ta-modal-avatar');
+      if(img){ avatar.src = img; avatar.alt = title + ' avatar'; avatar.style.display=''; } else { avatar.style.display='none'; }
+      modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); document.documentElement.style.overflow='hidden';
+      modal.querySelector('.ta-modal-window').focus();
+    }, true);
+  }
+
+  // 2) auto-add data attributes to children of #feedbackContainer
+  const container = document.getElementById('feedbackContainer');
+  if(!container){ console.warn('No #feedbackContainer found.'); return; }
+  const items = Array.from(container.children).filter(n=> n.nodeType===1);
+  if(items.length===0){ console.warn('#feedbackContainer has no children to attach; maybe cards are rendered later.'); return; }
+
+  items.forEach((el, idx)=>{
+    // try to find name/title
+    const title = el.getAttribute('data-ta-title') || el.getAttribute('data-title') || el.querySelector('.name, h3, h4, .card-name')?.textContent?.trim();
+    const body = el.getAttribute('data-ta-body') || el.getAttribute('data-body') || el.querySelector('.excerpt, p, .card-excerpt, .description')?.textContent?.trim();
+    const img = el.getAttribute('data-ta-img') || el.querySelector('img')?.src;
+    if(title) el.setAttribute('data-ta-title', title);
+    if(body) el.setAttribute('data-ta-body', body);
+    if(img) el.setAttribute('data-ta-img', img);
+    // make element keyboard-focusable if not already
+    if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    el.style.cursor = el.style.cursor || 'pointer';
+  });
+
+  console.log('Auto-attached data-ta-* to', items.length, 'elements. Opening first item now (if any).');
+  // 3) open first item to test
+  const first = container.querySelector('[data-ta-title]') || container.children[0];
+  if(first){
+    first.click();
+  } else {
+    console.warn('No candidate found to open.');
+  }
+})();
