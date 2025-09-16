@@ -137,7 +137,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
-
+// create feedback form request
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("feedbackForm")
@@ -289,47 +289,46 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // feedback fetch and modal logic
-(function () {
-  const API_URL = 'https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/';
+(function(){
+  const API_URL = 'https://teja-adusumilli-dev-ed.my.salesforce-sites.com/services/apexrest/FeedbackAPI/'; // update if needed
   const container = document.getElementById('feedbackContainer');
   const modal = document.getElementById('feedbackModal');
-  const modalShowClass = 'show';
+  const modalPanel = modal.querySelector('.modal-panel');
   const avatarEl = document.getElementById('modal-avatar');
   const nameEl = document.getElementById('modal-name');
   const emailEl = document.getElementById('modal-email');
   const commentEl = document.getElementById('modal-comment');
-  const closeBtn = modal.querySelector('.feedback-close-btn');
-  const backdrop = modal.querySelector('[data-close-modal]');
+  const closeBtn = modal.querySelector('.modal-close-btn');
+  const SHOW_CLASS = 'show';
+  const FALLBACK_AVATAR = './assets/images/avatar-1.png';
 
-  // Safe avatar chooser: use common SF field names or fallback image
-  function chooseAvatar(entry) {
-    // try common fields used previously, then fallback to default
-    return entry.AvatarUrl || entry.PhotoURL__c || entry.Picture__c || './assets/images/avatar-1.png';
+  // minimal escaping
+  function esc(s){ return String(s==null?'':s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+  // choose avatar field fallback chain
+  function chooseAvatar(entry){
+    return entry.AvatarUrl || entry.PhotoURL__c || entry.Picture__c || entry.avatar || FALLBACK_AVATAR;
   }
 
-  // Render cards from fetched feedback array
-  function renderCards(list) {
-    if (!Array.isArray(list) || list.length === 0) {
-      container.innerHTML = '<p>No feedback found.</p>';
+  // Render cards
+  function renderCards(list){
+    if(!Array.isArray(list) || list.length===0){
+      container.innerHTML = '<div class="no-feedback">No feedback found.</div>';
       return;
     }
-
-    container.innerHTML = list.map(entry => {
-      const name = entry.Name || 'Anonymous';
-      const comment = entry.Comments__c || entry.Comment__c || entry.Comment || 'No comment provided.';
-      const email = entry.Email__c || entry.Email || '';
-      const avatar = chooseAvatar(entry);
-
-      // escape minimal HTML to avoid injection (basic)
-      function esc(s){ return String(s || '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
-
+    const html = list.map(e=>{
+      const name = e.Name || e.name || 'Anonymous';
+      const comment = e.Comments__c || e.Comment__c || e.Comment || e.comment || 'No comment provided.';
+      const email = e.Email__c || e.Email || e.email || '';
+      const avatar = chooseAvatar(e);
+      // use data-* attributes (escaped)
       return `
         <div class="feedback-card" role="button" tabindex="0"
              data-avatar="${esc(avatar)}"
              data-name="${esc(name)}"
              data-email="${esc(email)}"
              data-comment="${esc(comment)}">
-          <img class="card-avatar" src="${esc(avatar)}" alt="${esc(name)}" width="56" height="56" />
+          <img loading="lazy" src="${esc(avatar)}" alt="${esc(name)} avatar" width="48" height="48">
           <div class="feedback-content">
             <div class="feedback-name">${esc(name)}</div>
             <div class="feedback-email">${esc(email)}</div>
@@ -338,72 +337,71 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
     }).join('');
+    container.innerHTML = html;
   }
 
-  // Load feedback from API
-  async function loadFeedback() {
-    try {
+  // fetch data
+  async function loadFeedback(){
+    try{
       container.innerHTML = '<div class="loading">Loading feedback…</div>';
       const res = await fetch(API_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Network response not ok: ' + res.status);
+      if(!res.ok) throw new Error('Network not ok: ' + res.status);
       const data = await res.json();
       renderCards(data);
-    } catch (err) {
-      console.error('Error fetching feedback:', err);
-      container.innerHTML = '<p>Error loading feedback.</p>';
+    }catch(err){
+      console.error('Feedback load failed', err);
+      container.innerHTML = '<div class="error">Error loading feedback.</div>';
     }
   }
 
-  // Read data from a card element (delegation)
-  function readCardData(card) {
+  // read data from card
+  function readCardData(card){
     return {
-      avatar: card.dataset.avatar || card.querySelector('img')?.src || './assets/images/avatar-1.png',
+      avatar: card.dataset.avatar || card.querySelector('img')?.src || FALLBACK_AVATAR,
       name: card.dataset.name || card.querySelector('.feedback-name')?.textContent || 'Anonymous',
       email: card.dataset.email || card.querySelector('.feedback-email')?.textContent || '',
       comment: card.dataset.comment || card.querySelector('.feedback-comment')?.textContent || ''
     };
   }
 
-  // Open modal with given data
-  function openModalWithData(data) {
-    avatarEl.src = data.avatar || './assets/images/avatar-1.png';
+  // open modal
+  function openModalWithData(data){
+    avatarEl.src = data.avatar || FALLBACK_AVATAR;
     avatarEl.alt = data.name || 'Avatar';
     nameEl.textContent = data.name || '';
     emailEl.textContent = data.email || '';
     commentEl.textContent = data.comment || '';
 
-    modal.classList.add(modalShowClass);
-    modal.setAttribute('aria-hidden', 'false');
-    // lock scroll
+    modal.classList.add(SHOW_CLASS);
+    modal.setAttribute('aria-hidden','false');
+
+    // prevent body scroll
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
-    // move focus to close button for accessibility
-    closeBtn?.focus();
+    // focus the panel for screen reader / keyboard
+    modalPanel.focus();
   }
 
-  // Close modal
-  function closeModal() {
-    modal.classList.remove(modalShowClass);
-    modal.setAttribute('aria-hidden', 'true');
+  function closeModal(){
+    modal.classList.remove(SHOW_CLASS);
+    modal.setAttribute('aria-hidden','true');
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
   }
 
-  // Delegated click (and keyboard Enter/Space) on container
-  function attachDelegation() {
-    container.addEventListener('click', (e) => {
+  // delegation handlers
+  function attachDelegation(){
+    container.addEventListener('click', (e)=>{
       const card = e.target.closest('.feedback-card');
-      if (!card) return;
+      if(!card) return;
       const data = readCardData(card);
       openModalWithData(data);
     });
-
-    // keyboard support for accessibility
-    container.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    container.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
         const card = e.target.closest('.feedback-card');
-        if (!card) return;
+        if(!card) return;
         e.preventDefault();
         const data = readCardData(card);
         openModalWithData(data);
@@ -411,28 +409,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Attach modal close handlers
-  function attachModalHandlers() {
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (backdrop) backdrop.addEventListener('click', (e) => {
-      if (e.target === backdrop) closeModal();
+  // modal handlers
+  function attachModalHandlers(){
+    // close button
+    closeBtn.addEventListener('click', closeModal);
+
+    // backdrop: only close when clicking outside panel (i.e. on .modal-backdrop)
+    modal.addEventListener('click', (e)=>{
+      // if clicked directly on backdrop (not inside panel), close
+      if(e.target.classList.contains('modal-backdrop')) closeModal();
     });
-    // click outside (modal element) close fallback
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
     // ESC to close
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && modal.classList.contains(SHOW_CLASS)) closeModal();
+    });
+
+    // trap focus a little: shift+tab/ tab cycle - simple approach
+    modalPanel.addEventListener('keydown', (e)=>{
+      if(e.key === 'Tab'){
+        // if only one focusable element (closeBtn), let it handle naturally
+        // For brevity we won't implement a full focus trap here; but focusing panel helps.
+      }
     });
   }
 
-  // Initialize
-  document.addEventListener('DOMContentLoaded', () => {
+  // init
+  document.addEventListener('DOMContentLoaded', ()=>{
     loadFeedback();
     attachDelegation();
     attachModalHandlers();
   });
 
-  // expose for debugging
+  // export for debugging if needed
   window._feedback = { loadFeedback, openModalWithData, closeModal };
 })();
+

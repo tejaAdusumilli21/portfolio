@@ -932,42 +932,41 @@ His ability to understand complex requirements and translate them into efficient
       <!--
         - #FEEDBACK
       -->
-      <article class="Feedback" data-page="feedback">
-        <header>
-          <h2 class="h2 article-title">FeedBack</h2>
-        </header>
+     <!--  Feedback Section (drop into page)  -->
+<article id="feedbackSection" class="Feedback" data-page="feedback">
+  <header>
+    <h2 class="h2 article-title">Feedback</h2>
+  </header>
 
-        <div id="feedbackContainer" class="feedback-grid"></div>
+  <!-- Container where cards will be mounted -->
+  <div id="feedbackContainer" class="feedback-grid" aria-live="polite"></div>
 
-        <!-- Feedback modal (hidden until .show is added) -->
-         <div id="feedbackModal" class="modal" role="dialog" aria-modal="true">
-          <div class="modal-backdrop" data-close-modal></div>
+  <!-- Modal (hidden until .show is added) -->
+  <div id="feedbackModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal>
+      <section class="modal-panel" role="document" aria-labelledby="modal-name" aria-describedby="modal-comment" tabindex="-1">
+        <button class="modal-close-btn" aria-label="Close feedback dialog">&times;</button>
 
-          <section class="testimonials-modal">
-            <button class="modal-close-btn feedback-close-btn" aria-label="Close">
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
+        <div class="modal-top">
+          <figure class="modal-avatar-box">
+            <img id="modal-avatar" src="./assets/images/avatar-1.png" alt="Avatar" width="80" height="80">
+          </figure>
+          <div class="modal-quote">
+            <img src="./assets/images/icon-quote.svg" alt="">
+          </div>
+        </div>
 
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img id="modal-avatar" src="./assets/images/avatar-1.png" alt="Avatar" width="80">
-              </figure>
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
-            </div>
-
-            <div class="modal-content">
-              <h4 class="h3 modal-title" id="modal-name"></h4>
-              <p id="modal-email"></p>
-              <div class="modal-text">
-                <p id="modal-comment"></p>
-              </div>
-            </div>
-          </section>
-        </div> 
-        <!-- new design -->
-         <!-- START: TA Modal (new, no old IDs/classes) -->
-
-      </article>
+        <div class="modal-content-inner">
+          <h3 id="modal-name" class="modal-title"></h3>
+          <p id="modal-email" class="modal-email"></p>
+          <div class="modal-text">
+            <p id="modal-comment"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</article>
 
 
 
