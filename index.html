@@ -32,8 +32,55 @@
   <!--
     - #MAIN
   -->
+<!-- add this inside <body> (or wrap existing content) -->
+<div class="page-bg">
+  <div class="container-glass">
 
-  <main>
+    <!-- LEFT: profile/cover -->
+    <aside class="glass left-glass">
+      <div class="cover">
+        <img src="/assets/2482208.jpg" alt="cover image" />
+      </div>
+
+      <div class="profile-row">
+        <img class="avatar" src="/assets/avatar.jpg" alt="Teja Adusumilli" />
+        <div>
+          <h1 style="margin:0">Teja Adusumilli</h1>
+          <div style="font-size:13px; opacity:0.95">Salesforce Developer • LWC & Apex</div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div><strong>18</strong><div style="opacity:0.85">Projects</div></div>
+        <div><strong>12</strong><div style="opacity:0.85">Clients</div></div>
+        <div><strong>1.6M</strong><div style="opacity:0.85">Followers</div></div>
+      </div>
+
+      <nav style="margin-top:14px; display:flex; flex-direction:column; gap:8px;">
+        <a href="#projects" style="color:inherit; text-decoration:none; padding:10px; border-radius:10px; background:rgba(255,255,255,0.02)">Projects</a>
+        <a href="#about" style="color:inherit; text-decoration:none; padding:10px; border-radius:10px; background:rgba(255,255,255,0.02)">About</a>
+        <a href="#contact" class="cta" style="padding:10px; border-radius:10px; background:linear-gradient(90deg, rgba(252,197,98,0.14), rgba(252,197,98,0.06)); color:#fff; text-decoration:none;">Contact</a>
+      </nav>
+    </aside>
+
+    <!-- RIGHT: main content -->
+    <main class="glass right-glass">
+      <div class="right-topbar">
+        <div class="search-pill">Search my work...</div>
+        <div class="badges"><span style="opacity:0.9">Featured</span></div>
+      </div>
+
+      <section id="projects" class="projects">
+        <article class="project-card">
+          <img src="/assets/project1.jpg" alt="">
+          <div>
+            <h3 style="margin:0">Salesforce Health Cloud</h3>
+            <p style="margin:6px 0 0 0; opacity:0.9">Agentforce customization & LWC demo</p>
+          </div>
+        </article>
+
+        <!-- duplicate project-card blocks for more items -->
+         <main>
     <!--
       - #SIDEBAR
     -->
@@ -1349,6 +1396,13 @@ His ability to understand complex requirements and translate them into efficient
       </article>
     </div>
   </main>
+      </section>
+    </main>
+
+  </div>
+</div>
+
+  
 
   <!--
     - custom js link
